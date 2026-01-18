@@ -1,0 +1,440 @@
+% ! TEX root = ../report.tex
+
+\documentclass[../report.tex]{subfile} 
+
+\begin{document}
+
+\section{信号卷积实验}
+
+\subsection{实验目的}
+1. 理解卷积的概念及物理意义。\\
+2. 通过实验的方法加深对卷积运算的图解方法及结果的理解。
+
+\subsection{实验器材}
+\begin{itemize}
+    \item 双踪示波器：1台
+    \item 信号源及频率计模块（S2模块）：1块
+    \item 数字信号处理模块（S4模块）：1块
+\end{itemize}
+
+\subsection{实验原理}
+\subsubsection{两个矩形脉冲信号的卷积过程}
+两信号均为矩形脉冲信号，其卷积运算可通过图解法完成，最终结果需与实验结果进行对比。图6-1展示了两矩形脉冲的卷积积分运算过程与结果。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./6-1.png}
+    \caption{两矩形脉冲的卷积积分的运算过程与结果}
+    \label{fig:rect_conv_process}
+\end{figure}
+
+\paragraph{图解法的一般步骤}
+1. 置换：将变量 \(t\) 替换为 \(\tau\)，即 \(f_1(t) \to f_1(\tau)\)，\(f_2(t) \to f_2(\tau)\)；\\
+2. 反褶：将 \(\tau\) 替换为 \(-\tau\)，即 \(f_2(\tau) \to f_2(-\tau)\)；\\
+3. 平移：将 \(-\tau\) 替换为 \(t-\tau\)，即 \(f_2(-\tau) \to f_2(t-\tau)\)；\\
+4. 相乘：计算 \(f_1(\tau) \cdot f_2(t-\tau)\)；\\
+5. 积分：计算 \(\int_{-\infty}^{+\infty} f_1(\tau) f_2(t-\tau) d\tau\)。
+
+\paragraph{不同占空比矩形波的自卷积过程}
+1. 占空比50\%的矩形波自卷积过程：通过上述图解法步骤，最终得到的卷积结果为三角形脉冲信号；\\
+2. 占空比25\%的矩形波自卷积过程：同样遵循图解法步骤，卷积结果的波形形态随占空比变化而改变。
+
+\subsubsection{矩形脉冲信号与锯齿波信号的卷积}
+信号 \(f_1(t)\) 为锯齿波信号，\(f_2(t)\) 为矩形脉冲信号，如图6-2所示。根据卷积积分的运算方法，可得到两者的卷积积分结果 \(y(t)\)，具体波形如图6-2(c)所示。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./6-2.png}
+    \caption{矩形脉冲信号与锯齿波信号的卷积积分结果}
+    \label{fig:rect_saw_conv}
+\end{figure}
+
+\paragraph{占空比50\%的矩形波与锯齿波的互卷积过程}
+按照卷积图解法的五个步骤依次运算，最终得到的卷积结果为分段线性的连续信号，其波形特征与矩形波和锯齿波的参数相关。
+
+\subsection{实验步骤}
+\subsubsection{矩形脉冲信号的自卷积}
+1. 模块关电，连接信号源及频率计模块S2的模拟输出P2和数字信号处理模块S4的P9；\\
+2. 模块开电，调节信号源模块使P2输出方波信号：扫频开关拨至“OFF”，调节“ROL1”使方波频率为500Hz，调节“模拟输出幅度调节W1”使幅度为1V；然后长按“ROL1”旋钮约2秒钟，旋转调节“ROL1”，使数码管上显示数据“50”（即占空比为50\%）；\\
+3. 将拨动开关SW1调整为“00000010”，设置为自卷积功能；\\
+4. 按下复位键S2；\\
+5. 将示波器的探头CH1接于TP2，探头CH2接于TP1，对比观察占空比为50\%的输入信号与卷积后输出信号波形，照片记录在表\ref{tab:self_conv_data}中；\\
+6. 改变矩形波占空比：长按信号源模块的“频率调节”旋钮切换到方波占空比设置功能，旋转“频率调节”旋钮，将P2输出矩形波的占空比调整至25\%和75\%；用示波器探头1观测信号源模块的P2，确认占空比变化；用示波器探头2观测数字信号处理模块的TP1，记录卷积信号输出的变化情况，照片填入表\ref{tab:self_conv_data}；\\
+7. 改变矩形波的幅度：调节信号源模块的“模拟输出幅度调节W1”使P9输入幅度为2V；用示波器分别观测信号源模块的P2和数字信号处理模块的TP1，记录自卷积输出变化情况，照片填入表\ref{tab:self_conv_data}。
+
+\begin{table}[H]
+    \centering
+    \caption{矩形脉冲信号自卷积实验数据记录}
+    \label{tab:self_conv_data}
+    \begin{tabular}{ccc}
+        \toprule
+        信号条件 & TP2波形 & TP1波形 \\
+        \midrule
+        占空比50\%，幅度1V &  &  \\
+        占空比25\%，幅度1V &  &  \\
+        占空比75\%，幅度1V &  &  \\
+        占空比50\%，幅度2V &  &  \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{矩形信号与矩形信号的互卷积}
+激励信号为幅度1V、频率500Hz、占空比约为50\%的方波信号（由信号源模块提供并输入到S4模块的P9）；将S4模块的S3开关第8位拨为1，此时S4模块内部产生频率500Hz、占空比50\%的方波信号（测试点为TP2），卷积输出测试点为TP1。具体步骤如下：
+1. 模块关电，连接信号源及频率计模块S2的模拟输出P2和数字信号处理模块S4的P9；\\
+2. 模块开电，调节信号源模块使P2输出方波信号：扫频开关拨至“OFF”，调节“ROL1”使方波频率为500Hz，调节“模拟输出幅度调节W1”使幅度为1V；长按“ROL1”旋钮约2秒钟，旋转调节“ROL1”，使数码管显示“50”（占空比50\%）；\\
+3. 将拨动开关SW1调整为“00000011”（互卷积功能），将拨码开关S3拨为“00000001”（TP2输出矩形波信号）；\\
+4. 按下复位键S2；\\
+5. 将示波器探头CH1接于TP2，探头CH2接于TP1，对比观察两占空比50\%矩形信号的卷积输出波形，照片记录在表\ref{tab:rect_rect_conv_data}中；\\
+6. 改变矩形波占空比：长按信号源模块的“频率调节”旋钮切换到占空比设置功能，旋转旋钮将P2输出矩形波的占空比调整至25\%和75\%；用示波器探头1观测S2模块的P2，确认占空比变化；用探头2观测S4模块的TP1，记录卷积输出变化情况，照片填入表\ref{tab:rect_rect_conv_data}；\\
+7. 改变矩形波的幅度：调节信号源模块的“模拟输出幅度调节W1”使P9输入幅度为2V；用示波器分别观测S2模块的P2和S4模块的TP1，记录互卷积输出变化情况，照片填入表\ref{tab:rect_rect_conv_data}。
+
+\begin{table}[H]
+    \centering
+    \caption{矩形信号互卷积实验数据记录}
+    \label{tab:rect_rect_conv_data}
+    \begin{tabular}{ccc}
+        \toprule
+        信号条件 & TP2波形 & TP1波形 \\
+        \midrule
+        两信号占空比均为50\%，幅度1V &  &  \\
+        输入信号占空比25\%，内部信号占空比50\%，幅度1V &  &  \\
+        输入信号占空比75\%，内部信号占空比50\%，幅度1V &  &  \\
+        两信号占空比均为50\%，幅度2V &  &  \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{矩形信号与锯齿波信号的互卷积}
+激励信号为幅度1V、频率500Hz、占空比50\%的方波信号（由S2模块提供并输入到S4模块的P9）；将S4模块的S3开关第8位拨为0，此时S4模块内部产生频率500Hz、占空比50\%的锯齿波信号（测试点为TP2），卷积输出测试点为TP1。具体步骤如下：
+1. 模块关电，连接信号源及频率计模块S2的P2与数字信号处理模块S4的P9；\\
+2. 模块开电，调节信号源上相应旋钮，使P2输出幅度1V、频率500Hz、占空比50\%的矩形波；\\
+3. 将S4模块的拨动开关SW1调整为“00000011”（互卷积功能），将拨码开关S3拨为“00000000”（TP2输出锯齿波信号），按下复位键S2；\\
+4. 用示波器探头连接S4模块的TP2，观测锯齿波波形；\\
+5. 用示波器探头连接S4模块的TP1，观测卷积后输出信号的波形，照片记录在表\ref{tab:rect_saw_conv_data}中；\\
+6. 改变矩形波占空比：长按信号源模块的“频率调节”旋钮切换到占空比设置功能，旋转旋钮将P2输出矩形波的占空比调整至25\%和75\%；观测P9输出矩形波的占空比变化，记录卷积输出变化情况，照片填入表\ref{tab:rect_saw_conv_data}；\\
+7. 改变锯齿波占空比：改变拨码开关S3的前7位，设置锯齿波输出为不同占空比信号；用示波器探头1观测S4模块的TP2，确认锯齿波占空比变化；用探头2观测S4模块的TP1，记录不同占空比下锯齿波与矩形波的互卷积输出变化情况，照片填入表\ref{tab:rect_saw_conv_data}。
+
+\begin{table}[H]
+    \centering
+    \caption{矩形信号与锯齿波互卷积实验数据记录}
+    \label{tab:rect_saw_conv_data}
+    \begin{tabular}{ccc}
+        \toprule
+        信号条件 & TP2波形（S4模块） & TP1波形 \\
+        \midrule
+        矩形波、锯齿波占空比均为50\%，幅度1V &  &  \\
+        矩形波占空比25\%，锯齿波占空比50\%，幅度1V &  &  \\
+        矩形波占空比75\%，锯齿波占空比50\%，幅度1V &  &  \\
+        矩形波占空比50\%，锯齿波占空比25\%，幅度1V &  &  \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{实验结果}
+
+
+\subsubsection{矩形脉冲信号的自卷积}
+自卷积信号的波形如下图\ref{fig:6-4-1}所示：
+\begin{figure}[H]  % 补全[H]固定位置，与文档风格统一
+  \centering
+  % 每个subfigure必须指定宽度参数，这里用0.45\textwidth避免排版拥挤
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{./6-4-11.png}  % 图片宽度适配subfigure
+    \caption{占空比50\%，幅度1V}
+  \end{subfigure}
+  \hfill  % 子图之间添加水平间距
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{./6-4-12.png}
+    \caption{占空比25\%，幅度1V}
+  \end{subfigure}
+  
+  \vspace{0.5cm}  % 换行添加垂直间距
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{./6-4-21.png}
+    \caption{占空比75\%，幅度1V}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{./6-4-22.png}
+    \caption{占空比50\%，幅度2V}
+  \end{subfigure}
+  \caption{矩形脉冲信号自卷积波形}
+  \label{fig:6-4-1}
+\end{figure}
+
+\subsubsection{矩形信号与矩形信号的互卷积}
+互卷积信号的波形如下图\ref{fig:6-4-2}所示：
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{./6-4-21.png}
+    \caption{两信号占空比均为50\%，幅度1V}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{./6-4-22.png}
+    \caption{输入信号占空比25\%，内部信号占空比50\%，幅度1V}
+  \end{subfigure}
+  
+  \vspace{0.5cm}
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{./6-4-23.png}
+    \caption{输入信号占空比75\%，内部信号占空比50\%，幅度1V}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{./6-4-24.png}  % 修正笔误：6-4-44.png → 6-4-24.png
+    \caption{两信号占空比均为50\%，幅度2V}
+  \end{subfigure}
+  \caption{矩形信号互卷积波形}
+  \label{fig:6-4-2}
+\end{figure}
+
+\subsubsection{矩形信号与锯齿波信号的互卷积}
+互卷积信号的波形如下图\ref{fig:6-4-3}所示：
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{./6-4-31.png}
+    \caption{矩形波、锯齿波占空比均为50\%，幅度1V}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{./6-4-32.png}
+    \caption{矩形波占空比25\%，锯齿波占空比50\%，幅度1V}
+  \end{subfigure}
+  
+  \vspace{0.5cm}
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{./6-4-33.png}
+    \caption{矩形波占空比75\%，锯齿波占空比50\%，幅度1V}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{./6-4-34.png}
+    \caption{矩形波占空比50\%，锯齿波占空比25\%，幅度1V}
+  \end{subfigure}
+  \caption{矩形信号与锯齿波互卷积波形}
+  \label{fig:6-4-3}
+\end{figure}
+
+\subsection{实验程序及运行结果}
+\subsubsection{任务一程序及运行结果}
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+
+delta = 0.01;
+t = -10:delta:10;
+f1 = heaviside(t) - heaviside(t-2);
+f2 =  heaviside(t+3) - heaviside(t);
+
+c12 = conv(f1, f2) * delta;
+c11 = conv(f1, f1) * delta;
+c22 = conv(f2, f2) * delta;
+ctime = -20:delta:20;
+
+figure;
+subplot(2,3,1);
+plot(t, f1);
+title('f1(t)');
+
+subplot(2,3,2);
+plot(t, f2);
+title('f2(t)');
+
+subplot(2,3,4);
+plot(ctime, c11);
+title('f1(t) * f1(t)');
+
+subplot(2,3,5);
+plot(ctime, c12);
+title('f1(t) * f2(t)');
+
+subplot(2,3,6);
+plot(ctime, c22);
+title('f2(t) * f2(t)');
+
+saveas(gcf, './p1.png');
+
+
+\end{lstlisting}
+
+运行结果如图\ref{fig:6-5-1}所示：
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./matlab/p1.png}
+  \caption{任务一运行结果}
+  \label{fig:6-5-1}
+\end{figure}
+
+\subsubsection{任务二程序及运行结果}
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+
+delta = 0.01;
+t = -5:delta:5;
+f1 =heaviside(t) - heaviside(t-2);
+f2 =  heaviside(t) - heaviside(t-3) + heaviside(t-1) - heaviside(t-2);
+
+c = conv(f1, f2) * delta;
+ctime = -10:delta:10;
+
+figure;
+subplot(3,1,1);
+plot(t, f1);
+title('f1(t)');
+
+subplot(3,1,2);
+plot(t, f2);
+title('f2(t)');
+
+subplot(3,1,3);
+plot(ctime, c);
+title('f1(t) * f2(t)');
+
+saveas(gcf, './p2.png');
+
+\end{lstlisting}
+
+运行结果如图\ref{fig:6-5-2}所示：
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{./matlab/p2.png}
+  \caption{任务二运行结果}
+  \label{fig:6-5-2}
+\end{figure}
+
+\subsubsection{任务三程序及运行结果}
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+
+delta = 0.01;
+t = -5:delta:5;
+f1 = heaviside(t+1) - heaviside(t-1);
+f2 = (t + 3).*(t>-3&t<-2) + 1.*(t>=-2&t<=0) + (1-t).*(t>0&t<1);
+
+c = conv(f1, f2) * delta;
+ctime = -10:delta:10;
+
+figure;
+subplot(3,1,1);
+plot(t, f1);
+title('f1(t)');
+
+subplot(3,1,2);
+plot(t, f2);
+title('f2(t)');
+title('f2(t)');
+
+subplot(3,1,3);
+plot(ctime, c);
+title('f1(t) * f2(t)');
+
+saveas(gcf, './p3.png');
+
+\end{lstlisting}
+
+运行结果如图\ref{fig:6-5-3}所示：
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{./matlab/p3.png}
+  \caption{任务三运行结果}
+  \label{fig:6-5-3}
+\end{figure}
+
+\subsubsection{任务四程序及运行结果}
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+
+delta = 0.01;
+t = -5:delta:5;
+f1 = (t-1).*(heaviside(t-1)-heaviside(t-3));
+f2 = heaviside(t+2) - 2*heaviside(t-2);
+
+c = conv(f1, f2) * delta;
+ctime = -10:delta:10;
+
+figure;
+subplot(3,1,1);
+plot(t, f1);
+title('f1(t)');
+
+subplot(3,1,2);
+plot(t, f2);
+title('f2(t)');
+
+subplot(3,1,3);
+plot(ctime, c);
+title('f1(t) * f2(t)');
+
+saveas(gcf, './p4.png');
+
+\end{lstlisting}
+
+运行结果如图\ref{fig:6-5-4}所示：
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{./matlab/p4.png}
+  \caption{任务四运行结果}
+  \label{fig:6-5-4}
+\end{figure}
+
+
+
+\end{document}

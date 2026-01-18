@@ -1,0 +1,897 @@
+%  ! TEX root = ../report.tex 
+\documentclass[../report.tex]{subfile}  % 仅这一行关联主文件，无其他导言命令
+\begin{document}
+\section{实验4：滤波器特性测量}
+\subsection{实验目的}
+1、熟悉滤波器构成及其特性。
+2、学会测量滤波器幅频特性的方法。
+
+\subsection{实验器材}
+\begin{enumerate}
+    \item 双踪示波器：1台
+    \item 信号源及频率计模块：1块
+    \item 抽样定理及滤波器模块：1块
+\end{enumerate}
+
+\subsection{实验原理}
+滤波器是一种能使有用频率信号通过而抑制（或大为衰减）无用频率信号的电子装置，工程上常用于信号处理、数据传送和抑制干扰等，本实验主要讨论模拟滤波器。
+
+以往滤波电路主要采用无源元件R、L和C组成；60年代以来，集成运放迅速发展，由其与R、C组成的有源滤波电路，具有不用电感、体积小、重量轻等优点。此外，集成运放的开环电压增益和输入阻抗均很高，输出阻抗又低，构成的有源滤波电路还具有一定的电压放大和缓冲作用，但集成运放的带宽有限，导致有源滤波电路的工作频率难以做得很高。
+
+\subsubsection{初步定义}
+滤波电路的一般结构如图\ref{fig:4-1}所示，图中$v_I(t)$表示输入信号，$v_O(t)$为输出信号。假设滤波器是线性时不变网络，则在复频域内有：
+\[A(s) = \frac{V_O(s)}{V_I(s)}\]
+式中$A(s)$是滤波电路的电压传递函数（一般为复数）。对于实际频率（$s = j\omega$），则有：
+\[A(j\omega) = \left|A(j\omega)\right| e^{j\varphi(\omega)}\]
+
+其中，$\left|A(j\omega)\right|$为传递函数的模，$\varphi(\omega)$为其相位角。
+
+% 改用figure浮动体（保留浮动体，避免subcaption报错）
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{fig4-1.png}
+    \caption{滤波器电路的一般结构}
+    \label{fig:4-1}
+\end{figure}
+
+二阶RC滤波器的传输函数如下表所示：
+\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        类型 & 传输函数 \\
+        \hline
+        低通 & $A(s) = \frac{A_0 \omega_0}{s^2 + \frac{\omega_0}{Q} s + \omega_0^2}$ \\
+        \hline
+        高通 & $A(s) = \frac{A_0 s^2}{s^2 + \frac{\omega_0}{Q} s + \omega_0^2}$ \\
+        \hline
+        带通 & $A(s) = \frac{A_0 \frac{\omega_0}{Q} s}{s^2 + \frac{\omega_0}{Q} s + \omega_0^2}$ \\
+        \hline
+        带阻 & $A(s) = \frac{A_V (s^2 + \omega_0^2)}{s^2 + \frac{\omega_0}{Q} s + \omega_0^2}$ \\
+        \hline
+    \end{tabular}
+    \\[6pt]
+    \textbf{备注：} 电压增益 $A_V$；$\omega_c$——低、高通滤波器的截止角频率；$\omega_0$——带通、带阻滤波器的中心角频率；$Q$——品质因数，$Q \approx \omega_0 / BW$ 或 $f_0 / BW$（当 $BW \ll \omega_0$ 时）；$BW$——带通、带阻滤波器的带宽。
+\end{center}
+
+此外，滤波电路中需关注时延$\tau(\omega)$，其定义为：
+\[ \tau(\omega) = -\frac{d\varphi(\omega)}{d\omega} \quad (4-2) \]
+通常用幅频响应表征滤波电路特性，欲使信号通过滤波器的失真很小，需考虑相位和时延响应。当相位响应$\varphi(\omega)$呈线性变化（即时延响应$\tau(\omega)$为常数）时，输出信号可避免失真。
+
+\subsubsection{滤波电路的分类}
+对于幅频响应，能通过的信号频率范围定义为通带，受阻或衰减的信号频率范围称为阻带，通带和阻带的界限频率叫做截止频率$f_c$。
+
+理想滤波电路在通带内应具有零衰减的幅频响应和线性的相位响应，而在阻带内应具有无限大的幅度衰减（$|A(j\omega)| = 0$）。根据通带和阻带的相互位置，滤波电路通常分为以下四类，其幅频响应如图\ref{fig:4-2}所示：
+
+% 子图改用minipage+figure浮动体，避免subcaption报错
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig4-2a.png}
+        \footnotesize (a) 低通滤波电路(LPF)
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig4-2b.png}
+        \footnotesize (b) 高通滤波电路(HPF)
+    \end{minipage}
+    \\[6pt]
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig4-2c.png}
+        \footnotesize (c) 带通滤波电路(BPF)
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig4-2d.png}
+        \footnotesize (d) 带阻滤波电路(BEF)
+    \end{minipage}
+    \caption{各种滤波电路的幅频响应}
+    \label{fig:4-2}
+\end{figure}
+
+\begin{itemize}
+    \item 低通滤波电路：通过从零到截止角频率$\omega_H$的低频信号，对大于$\omega_H$的频率完全衰减，带宽$BW = \omega_H$。
+    \item 高通滤波电路：阻带为$0 < \omega < \omega_L$，通带为$\omega > \omega_L$，理论带宽$BW = \infty$，实际受有源器件带宽限制。
+    \item 带通滤波电路：有两个阻带（$0 < \omega < \omega_L$和$\omega > \omega_H$），带宽$BW = \omega_H - \omega_L$，$\omega_0$为中心角频率。
+    \item 带阻滤波电路：有两个通带（$0 < \omega < \omega_L$和$\omega > \omega_H$）和一个阻带（$\omega_L < \omega < \omega_H$），功能是衰减$\omega_L$到$\omega_H$间的信号，$\omega_0$为中心角频率，实际通带$\omega > \omega_H$受有源器件限制。
+\end{itemize}
+
+\subsubsection{滤波器特性测量方法}
+研究滤波器特性需考察幅频特性曲线和相频特性曲线，常用测量方法有两种：
+
+\begin{enumerate}
+    \item 点频法（逐点测量法）：保持输入电压不变，人工逐点改变信号发生器的频率，记录各点对应的输出电压幅度，在直角坐标平面描绘幅度-频率曲线。
+          \begin{itemize}
+              \item 优点：测量准确度高，不需要特殊仪器。
+              \item 缺点：操作繁琐，容易漏掉某些细节，不能反应被测网络动态特性。
+          \end{itemize}
+    \item 扫频法：利用扫频信号发生器产生电压恒定、频率随时间线性变化的信号，实现输入信号频率的自动调节。
+          \begin{itemize}
+              \item 优点：操作简单，速度快，频率连续变化能覆盖更多频点，可反应网络动态特性，能观察到系统脉冲干扰等冲激变化。
+              \item 缺点：测量准确度比点频法低。
+          \end{itemize}
+\end{enumerate}
+
+正弦扫频信号（Sine Sweep）可作为系统激励和测取系统传递函数的有效方法，广泛应用于科研及生产中，在滤波器设计中常用其测量系统频率特性。
+
+\subsubsection{模块参数与扫频设置}
+\paragraph{扫频设置方法}
+信号源及频率计模块的扫频设置步骤如下：
+\begin{enumerate}
+    \item 将模块中扫频开关S3拨至“ON”，按下“扫频设置”按钮S5，此时“下限”指示灯亮，调节“ROL1”旋钮设置扫频下限频率；
+    \item 再次按下“扫频设置”按钮，“上限”指示灯亮，调节“ROL1”旋钮设置扫频上限频率；
+    \item 扫频范围设置完成后，再按一下“扫频设置”按钮，“分辨率”指示灯亮，此时扫频范围上方“上限”和“下限”指示灯亮，频率计数码管右方的“MHz”“Hz”指示灯熄灭；
+    \item 调节“ROL1”设置“下限频率”和“上限频率”之间的频点数（频点数越少，扫频速度越快；反之则越慢）；
+    \item 扫频参数设置完成后，按下“扫频设置”即可输出扫频信号。
+\end{enumerate}
+
+\paragraph{滤波器固有参数}
+各滤波器的固有截止频率/中心频率参数如下：
+\begin{itemize}
+    \item 低通：无源20kHz，有源17kHz；
+    \item 高通：无源14.5kHz，有源14.5kHz；
+    \item 带通：无源$f_L=1.3\mathrm{kHz}$、$f_H=18.5\mathrm{kHz}$；有源$f_L=2.4\mathrm{kHz}$、$f_H=20.8\mathrm{kHz}$；
+    \item 带阻：无源$f_L=4.1\mathrm{kHz}$、$f_H=65.2\mathrm{kHz}$；有源$f_L=6.5\mathrm{kHz}$、$f_H=38\mathrm{kHz}$。
+\end{itemize}
+
+\subsection{实验步骤}
+实验中信号源的输入信号均为4V左右的正弦波，设置模块：切换波形开关S4，使“SIN”指示灯亮，调节“模拟输出幅度调节”旋钮，使信号幅度为4V。
+
+\subsubsection{任务一：测量低通滤波器的频响特性}
+\paragraph{逐点测量法}
+\begin{enumerate}
+    \item 模块关电，连接模块2中模拟信号输出端P2与模块3中P1（低通无源），保持输入信号幅度为4V不变（如图\ref{fig:4-3}a）；
+    \item 模块开电，逐渐改变输入信号频率，用示波器观测TP2处信号波形的峰峰值；
+    \item 将数据填入表\ref{tab:4-1a}中；
+    \item 模块关电，连接模块2中P2与模块3中P5（低通有源）（如图\ref{fig:4-3}b）；
+    \item 模块开电，逐渐改变输入信号频率，用示波器观测TP6处信号波形的峰峰值；
+    \item 将数据填入表\ref{tab:4-1b}中。
+\end{enumerate}
+
+% 低通滤波器子图
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig4-3a.png}
+        \footnotesize (a) 无源低通滤波器
+        \label{fig:4-3a}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig4-3b.png}
+        \footnotesize (b) 有源低通滤波器
+        \label{fig:4-3b}
+    \end{minipage}
+    \caption{低通滤波器连接示意图}
+    \label{fig:4-3}
+\end{figure}
+
+% 表格改用table浮动体，确保引用正确
+\begin{table}[htbp]
+    \centering
+    \caption{低通无源滤波器逐点测量法}
+    \label{tab:4-1a}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $V_I(\mathrm{V})$ & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 截止频率 \\
+        \hline
+        $f(\mathrm{Hz})$ &  &  &  &  &  &  &  &  &  &  &  \\
+        \hline
+        $V_O(\mathrm{V})$ &  &  &  &  &  &  &  &  &  &  &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{低通有源滤波器逐点测量法}
+    \label{tab:4-1b}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $V_I(\mathrm{V})$ & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 截止频率 \\
+        \hline
+        $f(\mathrm{Hz})$ &  &  &  &  &  &  &  &  &  &  \\
+        \hline
+        $V_O(\mathrm{V})$ &  &  &  &  &  &  &  &  &  &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\paragraph{扫频法测量}
+\begin{enumerate}
+    \item 将扫频范围设置为100Hz~25kHz；
+    \item 把示波器CH1连接到信号源输出P2处（示波器调为直流测试档），此时P2输出扫频信号；
+    \item 分别将扫频信号输入到无源低通、有源低通滤波器的输入端；
+    \item 模块开电，对比观察输入输出信号，拍照记录波形。
+\end{enumerate}
+
+\subsubsection{任务二：测量高通滤波器的频响特性}
+\paragraph{逐点测量法}
+\begin{enumerate}
+    \item 模块关电，保持信号源输出正弦信号幅度不变，连接模块2中P2与模块3中P3（高通无源）端口（如图\ref{fig:4-4}a）；
+    \item 模块开电，逐渐改变输入信号频率，用示波器观测TP4处信号波形的峰峰值；
+    \item 将数据填入表\ref{tab:4-2a}中；
+    \item 模块关电，连接模块2中P2与模块3中P7（高通有源）（如图\ref{fig:4-4}b）；
+    \item 模块开电，逐渐改变输入信号频率，用示波器观测TP8处信号波形的峰峰值；
+    \item 将数据填入表\ref{tab:4-2b}中。
+\end{enumerate}
+
+% 高通滤波器子图
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig4-4a.png}
+        \footnotesize (a) 无源高通滤波器
+        \label{fig:4-4a}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig4-4b.png}
+        \footnotesize (b) 有源高通滤波器
+        \label{fig:4-4b}
+    \end{minipage}
+    \caption{高通滤波器连接示意图}
+    \label{fig:4-4}
+\end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \caption{高通无源滤波器逐点测量法}
+    \label{tab:4-2a}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $V_I(\mathrm{V})$ & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 截止频率 \\
+        \hline
+        $f(\mathrm{Hz})$ &  &  &  &  &  &  &  &  &  &  &  \\
+        \hline
+        $V_O(\mathrm{V})$ &  &  &  &  &  &  &  &  &  &  &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{高通有源滤波器逐点测量法}
+    \label{tab:4-2b}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $V_I(\mathrm{V})$ & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 截止频率 \\
+        \hline
+        $f(\mathrm{Hz})$ &  &  &  &  &  &  &  &  &  &  &  \\
+        \hline
+        $V_O(\mathrm{V})$ &  &  &  &  &  &  &  &  &  &  &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\paragraph{扫频法测量}
+\begin{enumerate}
+    \item 将扫频范围设置为100Hz~25kHz；
+    \item 把示波器连接到信号源输出P2处（示波器调为直流测试档），此时P2输出扫频信号；
+    \item 分别将扫频信号输入到无源高通、有源高通滤波器的输入端；
+    \item 模块开电，对比观察输入输出信号，拍照记录波形。
+\end{enumerate}
+
+\subsubsection{任务三：测量带通滤波器的频响特性}
+\paragraph{逐点测量法}
+\begin{enumerate}
+    \item 模块关电，保持信号源输出正弦波幅度为4V不变，连接模块2中P2与模块3中P9（带通无源）（如图\ref{fig:4-5}a）；
+    \item 模块开电，逐渐改变输入信号频率，用示波器观测TP10处信号波形的峰峰值；
+    \item 将数据填入表\ref{tab:4-3a}中；
+    \item 模块关电，连接模块2中P2与模块3中P13（带通有源）（如图\ref{fig:4-5}b）；
+    \item 模块开电，逐渐改变输入信号频率，用示波器观测TP14处信号波形的峰峰值；
+    \item 将数据填入表\ref{tab:4-3b}中。
+\end{enumerate}
+
+% 带通滤波器子图
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig4-5a.png}
+        \footnotesize (a) 无源带通滤波器
+        \label{fig:4-5a}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig4-5b.png}
+        \footnotesize (b) 有源带通滤波器
+        \label{fig:4-5b}
+    \end{minipage}
+    \caption{带通滤波器连接示意图}
+    \label{fig:4-5}
+\end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \caption{带通无源滤波器逐点测量法}
+    \label{tab:4-3a}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $V_I(\mathrm{V})$ & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 截止频率（$f_L, f_H$） \\
+        \hline
+        $f(\mathrm{Hz})$ &  &  &  &  &  &  &  &  &  &  &  \\
+        \hline
+        $V_O(\mathrm{V})$ &  &  &  &  &  &  &  &  &  &  &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{带通有源滤波器逐点测量法}
+    \label{tab:4-3b}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $V_I(\mathrm{V})$ & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 截止频率（$f_L, f_H$） \\
+        \hline
+        $f(\mathrm{Hz})$ &  &  &  &  &  &  &  &  &  &  &  \\
+        \hline
+        $V_O(\mathrm{V})$ &  &  &  &  &  &  &  &  &  &  &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\paragraph{扫频法测量}
+\begin{enumerate}
+    \item 将扫频范围设置为100Hz~80kHz；
+    \item 把示波器连接到信号源输出P2处（示波器调为直流测试档），此时P2输出扫频信号；
+    \item 分别将扫频信号输入到无源带通、有源带通滤波器的输入端；
+    \item 模块开电，对比观察输入输出信号，拍照记录波形。
+\end{enumerate}
+
+\subsubsection{任务四：测量带阻滤波器的频响特性}
+\paragraph{逐点测量法}
+\begin{enumerate}
+    \item 模块关电，保持信号源输出正弦波幅度为4V不变，连接模块2中P2与模块3中P11（带阻无源）（如图\ref{fig:4-6}a）；
+    \item 模块开电，逐渐改变输入信号频率，用示波器观测TP12处信号波形的峰峰值；
+    \item 将数据填入表\ref{tab:4-4a}中；
+    \item 模块关电，连接模块2中P2与模块3中P15（带阻有源）（如图\ref{fig:4-6}b）；
+    \item 模块开电，逐渐改变输入信号频率，用示波器观测TP16处信号波形的峰峰值；
+    \item 将数据填入表\ref{tab:4-4b}中。
+\end{enumerate}
+
+% 带阻滤波器子图
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig4-6a.png}
+        \footnotesize (a) 无源带阻滤波器
+        \label{fig:4-6a}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fig4-6b.png}
+        \footnotesize (b) 有源带阻滤波器
+        \label{fig:4-6b}
+    \end{minipage}
+    \caption{带阻滤波器连接示意图}
+    \label{fig:4-6}
+\end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \caption{带阻无源滤波器逐点测量法}
+    \label{tab:4-4a}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $V_I(\mathrm{V})$ & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 截止频率（$f_L, f_H$） \\
+        \hline
+        $f(\mathrm{Hz})$ &  &  &  &  &  &  &  &  &  &  &  \\
+        \hline
+        $V_O(\mathrm{V})$ &  &  &  &  &  &  &  &  &  &  &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{带阻有源滤波器逐点测量法}
+    \label{tab:4-4b}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $V_I(\mathrm{V})$ & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 截止频率（$f_L, f_H$） \\
+        \hline
+        $f(\mathrm{Hz})$ &  &  &  &  &  &  &  &  &  &  &  \\
+        \hline
+        $V_O(\mathrm{V})$ &  &  &  &  &  &  &  &  &  &  &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\paragraph{扫频法测量}
+\begin{enumerate}
+    \item 将扫频范围设置为100Hz~80kHz；
+    \item 把示波器连接到信号源输出P2处（示波器调为直流测试档），此时P2输出扫频信号；
+    \item 分别将扫频信号输入到无源带阻、有源带阻滤波器的输入端；
+    \item 模块开电，对比观察输入输出信号，拍照记录波形。
+\end{enumerate}
+
+\subsection{实验结果}
+\subsubsection{任务一：低通滤波器频响特性测量结果}
+实验结果如下表\ref{tab:4-1a-res}和表\ref{tab:4-1b-res}所示。
+\begin{table}[htbp]
+    \centering
+    \caption{低通无源滤波器逐点测量法}
+    \label{tab:4-1a-res}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $V_I(\mathrm{V})$ & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 截止频率 \\
+        \hline
+        $f(\mathrm{Hz})$ &1k  &2k  &4k  &8k  &16k  &32k  &64k  &128k  & 19.8k  \\
+        \hline
+        $V_O(\mathrm{V})$ &3.920  &3.920  &3.920  &3.600  &3.040  &2.080  &1.120  &0.640  &2.828  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{低通有源滤波器逐点测量法}
+    \label{tab:4-1b-res}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $V_I(\mathrm{V})$ & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4  & 截止频率 \\
+        \hline
+        $f(\mathrm{Hz})$ &1k  &2k  &4k  &8k  &16k  &32k  &64k  &128k  &17.1k  \\
+        \hline
+        $V_O(\mathrm{V})$ &4  &4  &4  &3.920  &2.960  &1.120  &0.480  &0.240  &2.828 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{任务二：高通滤波器频响特性测量结果}
+实验结果如下表\ref{tab:4-2a-res}和表\ref{tab:4-2b-res}所示。
+\begin{table}[htbp]
+    \centering
+    \caption{高通无源滤波器逐点测量法}
+    \label{tab:4-2a-res}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $V_I(\mathrm{V})$ & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4  & 截止频率 \\
+        \hline
+        $f(\mathrm{Hz})$ &1k  &2k  &4k  &8k  &16k  &32k  &64k  &128k  &16k  \\
+        \hline
+        $V_O(\mathrm{V})$ &0.32  &0.56  &0.96  &1.76  &2.80  &3.52 &3.84  &3.84  &2.715  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{高通有源滤波器逐点测量法}
+    \label{tab:4-2b-res}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $V_I(\mathrm{V})$ & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4  & 截止频率 \\
+        \hline
+        $f(\mathrm{Hz})$ &1k  &2k  &4k  &8k  &16k  &32k  &64k  &128k  &13.7k  \\
+        \hline
+        $V_O(\mathrm{V})$ &0.24  &0.56  &0.96  &1.76  &2.80  &3.52  &3.6  &2.24  &2.715  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{任务三：带通滤波器频响特性测量结果}
+实验结果如下表\ref{tab:4-3a-res}和表\ref{tab:4-3b-res}所示。
+\begin{table}[htbp]
+    \centering
+    \caption{带通无源滤波器逐点测量法}
+    \label{tab:4-3a-res}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $V_I(\mathrm{V})$ & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4  & 截止频率（$f_L, f_H$） \\
+        \hline
+        $f(\mathrm{Hz})$ &1k  &2k  &4k  &8k  &16k  &32k  &64k  &128k  &1.21k, 24.6k  \\
+        \hline
+        $V_O(\mathrm{V})$ &2.08  &2.8  &3.2  &3.2  &2.72  &1.92  &1.2  &0.72  &2.624  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{带通有源滤波器逐点测量法}
+    \label{tab:4-3b-res}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $V_I(\mathrm{V})$ & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4  & 截止频率（$f_L, f_H$） \\
+        \hline
+        $f(\mathrm{Hz})$ &1k  &2k  &4k  &8k  &16k  &32k  &64k  &128k  &2.31k, 24.5k  \\
+        \hline
+        $V_O(\mathrm{V})$ &1.28  &2.08  &2.96  &3.2  &2.8  &1.92  &1.12  &0.64  &2.624  \\
+        \hline
+    \end{tabular}
+\end{table}
+\subsubsection{任务四：带阻滤波器频响特性测量结果}
+实验结果如下表\ref{tab:4-4a-res}和表\ref{tab:4-4b-res}所示。
+\begin{table}[htbp]
+    \centering
+    \caption{带阻无源滤波器逐点测量法}
+    \label{tab:4-4a-res}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $V_I(\mathrm{V})$ & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4  & 截止频率（$f_L, f_H$） \\
+        \hline
+        $f(\mathrm{Hz})$ &1k  &2k  &4k  &8k  &16k  &32k  &64k  &128k  &4.31k, 65.3k  \\
+        \hline
+        $V_O(\mathrm{V})$ &3.76  &3.44  &2.72  &1.52  &0.32  &1.44  &2.56  &3.44  &2.658  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{带阻有源滤波器逐点测量法}
+    \label{tab:4-4b-res}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $V_I(\mathrm{V})$ & 4 & 4 & 4 & 4 & 4 & 4 & 4 & 4  & 截止频率（$f_L, f_H$） \\
+        \hline
+        $f(\mathrm{Hz})$ &1k  &2k  &4k  &8k  &16k  &32k  &64k  &128k  &6.51k, 43.2k  \\
+        \hline
+        $V_O(\mathrm{V})$ &3.92  &3.84  &3.52  &2.4  &0.32  &2.32  &3.2  &2.24  &2.771  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsubsection{各个任务的扫频法测量结果}
+各个任务的扫频法测量结果如图\ref{fig:4-5-res}
+\begin{figure}[H]
+  \begin{minipage}{0.22\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{4-5-1.png}
+    \caption{无源低通滤波器扫频法测量结果}
+  \end{minipage}
+  \begin{minipage}{0.22\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{4-5-2.png}
+    \caption{有源低通滤波器扫频法测量结果}
+  \end{minipage}
+  \begin{minipage}{0.22\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{4-5-4.png}
+    \caption{无源高通滤波器扫频法测量结果}
+  \end{minipage}
+  \begin{minipage}{0.22\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{4-5-5.png}
+    \caption{有源高通滤波器扫频法测量结果}
+  \end{minipage}
+  \begin{minipage}{0.23\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{4-5-3.png}
+    \caption{无源带通滤波器扫频法测量结果}
+  \end{minipage}
+  \begin{minipage}{0.25\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{4-5-6.png}
+    \caption{有源带通滤波器扫频法测量结果}
+  \end{minipage}
+  \begin{minipage}{0.25\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{4-5-7.png}
+    \caption{无源带阻滤波器扫频法测量结果}
+  \end{minipage}
+  \begin{minipage}{0.25\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{4-5-8.png}
+    \caption{有源带阻滤波器扫频法测量结果}
+  \end{minipage}
+  \caption{各任务扫频法测量结果}
+  \label{fig:4-5-res}
+\end{figure}
+
+\subsection{实验程序及运行结果}
+\subsubsection{问题一程序及运行结果}
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+
+
+dt = 0.01;
+t = -5:0.01:5;
+ft = sin(2.*pi.*(t-1))./(pi.*(t-1));
+ft(isnan(ft)) = 2;  % 替换t=1处的NaN为极限值2
+
+domega = 0.01;
+omega = -10:domega:10;
+Fft = dt*ft*exp(-1j*t'*omega);
+
+
+figure;
+subplot(2,1,1);
+plot(t, ft);
+title('Time Domain Signal f(t)');
+
+subplot(2,1,2);
+plot(omega, abs(Fft));
+title('Frequency Domain Signal |F(\omega)|');
+
+saveas(gcf, './p1_result.png');
+
+\end{lstlisting}
+
+运行结果如下图\ref{fig:p1_result}所示。
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./matlab/p1_result.png}
+  \caption{问题一运行结果}
+  \label{fig:p1_result}
+\end{figure}
+
+\subsubsection{问题二程序及运行结果}
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+
+w = -10:0.01:10;
+dw = 0.01;
+Fw = -1j*2*w./(16+w.^2);
+
+%inverse Fourier Transform
+t = -5:0.01:5;
+dt = 0.01;
+ft = (1/(2*pi))*dw*Fw*exp(1j*w'*t);
+
+figure;
+subplot(2,1,1);
+plot(w, abs(Fw));
+title('Frequency Domain Signal |F(\omega)|');
+
+subplot(2,1,2);
+plot(t, real(ft));
+title('Time Domain Signal f(t)');
+
+saveas(gcf, './p2_result.png');
+
+\end{lstlisting}
+
+运行结果如下图\ref{fig:p2_result}所示。
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{./matlab/p2_result.png}
+  \caption{问题二运行结果}
+  \label{fig:p2_result}
+\end{figure}
+
+\subsubsection{任务三程序及运行结果}
+
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+
+t = -2:0.01:2;
+ft = (t+2).*(t<-1) + 1*(t<=1&t>=-1) + (-(t-2)).*(t>1);
+
+%Fourier Transform
+dt = 0.01;
+dw = 0.01;
+w = -10:0.01:10;
+Fw = dt*ft*exp(-1j*t'*w);
+
+figure;
+subplot(3,1,1);
+plot(t, ft);
+title('Time Domain Signal f(t)');
+subplot(3,1,2);
+plot(w, abs(Fw));
+title('Frequency Domain Signal |F(\omega)|');
+
+%Inverse Fourier Transform
+ft_reconstructed = (1/(2*pi))*dw*Fw*exp(1j*w'*t);
+subplot(3,1,3);
+plot(t, real(ft_reconstructed));
+title('Reconstructed Time Domain Signal f(t) from F(\omega)');
+
+saveas(gcf, './p3_result.png');
+
+\end{lstlisting}
+
+运行结果如下图\ref{fig:p3_result}所示。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./matlab/p3_result.png}
+  \caption{任务三运行结果}
+  \label{fig:p3_result}
+\end{figure}
+
+\subsubsection{任务四程序及运行结果}
+
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+
+t = -5:0.01:5;
+dt = 0.01;
+ft = heaviside(t+0.5) - heaviside(t-0.5);
+% f(t/2)
+ft2 = heaviside(t/2+0.5) - heaviside(t/2-0.5);
+% f(2t)
+ft3 = heaviside(2*t+0.5) - heaviside(2*t-0.5);
+w = -10:0.01:10;
+ dw = 0.01;
+% Fourier Transform
+% ft
+Fft = dt*ft*exp(-1j*t'*w);
+Fft2 = dt*ft2*exp(-1j*t'*w);
+Fft3 = dt*ft3*exp(-1j*t'*w);
+
+figure;
+subplot(2,2,1);
+plot(t,ft);
+title('Time Domain Signal f(t)');
+
+subplot(2,2,2);
+plot(w, abs(Fft));
+title('Frequency Domain Signal |F(\omega)|');
+
+subplot(2,2,3);
+plot(w, abs(Fft2));
+title('Frequency Domain Signal |F_{f(t-2)}(\omega)|');
+
+subplot(2,2,4);
+plot(w, abs(Fft3));
+title('Frequency Domain Signal |F_{f(2t)}(\omega)|');
+
+saveas(gcf, './p4_result.png');
+
+\end{lstlisting}
+
+运行结果如下图\ref{fig:p4_result}所示。
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./matlab/p4_result.png}
+  \caption{任务四运行结果}
+  \label{fig:p4_result}
+\end{figure}
+
+\subsubsection{实验五程序及运行结果}
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+
+b = [0,1j,0];
+a = [-1,1j,100];
+w = -10:0.01:10;
+res = freqs(b,a,w);
+
+figure;
+subplot(2,1,1);
+plot(w, abs(res));
+title('Frequency Domain Signal |F(\omega)|');
+
+subplot(2,1,2);
+plot(w, angle(res));
+title('Frequency Domain Signal Phase \angleF(\omega)');
+
+saveas(gcf, './p5_result.png');
+
+
+\end{lstlisting}
+
+运行结果如下图\ref{fig:p5_result}所示。
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./matlab/p5_result.png}
+  \caption{任务五运行结果}
+  \label{fig:p5_result}
+\end{figure}
+
+\subsubsection{实验六程序及运行结果}
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+
+%0.2*dy/dt + y = x
+%%系统传递函数H(jw) = Y(jw)/X(jw) = 1/(0.2jw+1)
+x(t) = u(t) - u(t-1)
+t = -5:0.01:5;
+sys = tf([0,0,1],[0,0.2,1]);
+xt = heaviside(t) - heaviside(t-1);
+
+figure;
+%频域分析 数值法
+dt = 0.01;
+w = -10:0.01:10;
+dw = 0.01;
+Xw = dt*xt*exp(-1j*t'*w);
+Hw = freqs([0,0,1],[0,0.2,1],w);
+Yw = Hw.*Xw;
+yt = (1/(2*pi))*dw*Yw*exp(1j*w'*t);
+%time domain output
+subplot(2,1,1);
+plot(t, abs(yt));
+title('Time Domain Signal y(t) from Frequency Domain Analysis');
+
+%时域分析
+yt2 = lsim(sys, xt, t);
+subplot(2,1,2);
+plot(t, yt2);
+title('Time Domain Signal y(t) from Time Domain Analysis');
+
+saveas(gcf, './p6_result.png');
+
+
+\end{lstlisting}
+
+实验结果如下图\ref{fig:p6_result}所示。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{./matlab/p6_result.png}
+  \caption{任务六运行结果}
+  \label{fig:p6_result}
+\end{figure}
+
+
+
+
+\end{document}
+

@@ -1,0 +1,6 @@
+PWD /home/han/Documents/signalAndSystem/class6
+INPUT /usr/local/texlive/2025/texmf.cnf
+INPUT /usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf
+INPUT /usr/local/texlive/2025/texmf-var/web2c/xetex/xelatex.fmt
+INPUT class6.tex
+OUTPUT class6.log

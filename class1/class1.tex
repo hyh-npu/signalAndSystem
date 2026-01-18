@@ -1,0 +1,299 @@
+%! TEX root = ../report.tex
+
+\documentclass{article}
+\usepackage{ctex}       
+\usepackage[left=1.5cm,right=1.5cm,head=1.5cm,bottom=1.5cm]{geometry}
+\usepackage{graphicx}   
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{catoption}
+\begin{document}
+\section{常用信号的分类与观察}
+\subsection{实验目的：}
+\begin{itemize}
+  \item 观察常用信号的波形，了解其特点及产生方法。
+  \item 学会使用示波器测量常用波形的基本参数，了解信号及信号的特性。
+\end{itemize}
+
+\subsection{实验器材：}
+\begin{itemize}
+  \item 数字信号处理模块 S4 \\
+
+    {\centering
+    \includegraphics[width=0.5\textwidth]{moduleS4.png}
+    \captionof{figure}{数字信号处理模块 S4}
+    }
+
+  \item 双踪示波器
+\end{itemize}
+\subsection{实验原理：}
+
+对于一个系统特性的研究，其中重要的一个方面是研究它的输入输出关系，即在一特定的输入信号下，系
+统对应的输出响应信号。因而对信号的研究是对系统研究的出发点，是对系统特性观察的基本手段与方法。
+在本实验中，将对常用信号和特性进行分析、研究。
+
+信号可以表示为一个或多个变量的函数，在这里仅对一维信号进行研究，自变量为时间。常用信号有：指
+数信号、正弦信号、指数衰减正弦信号、抽样信号、钟形信号、脉冲信号等。
+\subsubsection{指数信号：}
+指数信号可以表示为：\[x(t)=Ae^{\alpha t}\]其中，A为幅值，$\alpha$为指数衰减系数。
+\subsubsection{指数正弦信号：}
+指数正弦信号的表达式为：\[x(t)=Ae^{\alpha t}sin(2\pi f t+\phi)U(t)\]其中，A为幅值，$\alpha$为指数衰减系数，f为频率，$\phi$为初相位。
+\subsubsection{抽样信号：}
+抽样信号表达式为：\[Sa(t)=\frac{\sin t}{t}\] 
+$Sa(t)$ 是一个偶函数，在t为$\pi$的整数倍时，函数数值为0,此函数在很多应用场合有独特的应用。
+\subsubsection{钟形信号：}
+钟形信号表达式为：\[x(t)=Ae^{-\frac{(t-t_0)^2}{2\sigma^2}}\]其中，A为幅值，$t_0$为中心位置，$\sigma$为宽度参数。
+\subsubsection{脉冲信号：}
+脉冲信号表达式为：\[p(t)=U(t-\frac{\tau}{2})-U(t+\frac{\tau}{2})\]其中，$\tau$为脉冲宽度，U(t)为单位阶跃函数。
+\subsubsection{方波信号：}
+方波信号表达式为：\[x(t)=A \cdot square(2\pi f t)\]其中，A为幅值，f为频率。
+
+\subsection{实验步骤：}
+将拨码开关SW1置为“0000 0001”（开关拨上为1，拨下为0），打开实验箱及模块电源，按下复位键S2加载常用信号观测功能。将拨码开关S3拨为“0000 0000”，点击查看设置。
+
+\begin{enumerate}
+  \item 用示波器观测指数信号波形，并分析测量其所对应的 \(a\)、\(K\) 参数。
+    \begin{enumerate}
+      \item 拨码开关S3第1位拨为“1”（从左到右），其他开关拨为“0”，用示波器在TP1观察输出的指数信号，并分析测量其对应的频率 \(a\)、\(K\) 参数。
+      \item 拨码开关S3第2位拨为“1”（从左到右），其他开关拨为“0”，观察指数信号波形的变化，分析原因。
+    \end{enumerate}
+
+  \item 指数正弦信号观察（正频率信号）。
+    \begin{enumerate}
+      \item 拨码开关S3第3位拨为“1”（从左到右），其他开关拨为“0”，用示波器在TP1观察输出的指数增长正弦信号。
+      \item 拨码开关S3第4位拨为“1”（从左到右），其他开关拨为“0”，注意波形变化情况，分析原因。
+    \end{enumerate}
+
+  \item 抽样信号的观察。
+    \begin{enumerate}
+      \item 拨码开关S3第5位拨为“1”（从左到右），其他开关拨为“0”，用示波器在TP1处观察输出的抽样信号。
+    \end{enumerate}
+
+  \item 钟形信号的观察。
+    \begin{enumerate}
+      \item 拨码开关S3第6位拨为“1”（从左到右），其他开关拨为“0”，用示波器在TP1观察输出的钟形信号，观测波形。
+    \end{enumerate}
+\end{enumerate}
+
+\textbf{注意：}该实验不要将拨码开关S3的第7位和第8位拨为“1”。
+
+\subsection{实验实验结果及结论：}
+\subsubsection{通过示波器观察常见信号：}
+
+以下是通过示波器观察到的常见的信号。
+% 六个子图（2×3布局），含独立标题（需导言区加载graphicx和subcaption包）
+\begin{figure}[htbp]
+  \centering
+  % 第1行子图
+  \begin{subfigure}[b]{0.31\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{exponential1.png}
+    \caption{指数增加信号}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.31\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{exponential2.png}
+    \caption{指数衰减信号}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.31\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{exponential_sine1.png}
+    \caption{指数增长正弦信号}
+  \end{subfigure}
+  
+  % 第2行子图
+  \vspace{0.5cm} % 上下行间距
+  \begin{subfigure}[b]{0.31\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{exponential_sine2.png}
+    \caption{指数衰减正弦信号}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.31\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{sampling_signal.png}
+    \caption{抽样信号}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.31\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{bell_signal.png}
+    \caption{钟形信号}
+  \end{subfigure}
+  
+  \caption{常用信号观测波形图} % 总标题（可选，可删除）
+\end{figure}
+\subsubsection{指数信号数据记录}
+
+以下是原始数据记录,如表\ref{tab:fit_data}所示。
+
+\begin{table}[htbp]
+  \centering
+  \caption{指数信号采集数据表}
+  \begin{tabular}{l p{14cm}}  % 左列变量名，右列数据（自动换行）
+    \hline
+    \textbf{$x_1/ms$} & 0.752, 2.304, 2.240, 2.148, 2.004, 1.892, 1.772, 1.628, 1.500, 1.392, 1.276, 1.180, 1.032 \\
+    \textbf{$y_1/V$} & 0.160, 5.040, 4.240, 3.360, 2.360, 1.800, 1.320, 0.920, 0.680, 0.520, 0.400, 0.320, 0.240 \\
+    \textbf{$x_2/ms$} & 1.560, 1.652, 1.728, 1.804, 1.900, 1.984, 2.068, 2.176, 2.292, 2.412, 2.500, 2.636, 2.832 \\
+    \textbf{$y_2/V$} & 5.840, 4.120, 3.400, 2.840, 2.200, 1.800, 1.440, 1.080, 0.840, 0.600, 0.520, 0.400, 0.280 \\
+    \hline
+  \end{tabular}
+  \label{tab:fit_data}
+\end{table}
+
+\subsection{实验程序及运行结果：}
+\subsubsection{指数信号拟合}
+通过MATLAB曲线拟合器对采集指数信号数据进行指数拟合，得到拟合曲线，如图\ref{fig:exp_fit}所示。
+
+\begin{figure}
+  \centering
+  \begin{subfigure}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[width=0.8\linewidth]{exp_increase_fit.png}
+    \caption{指数增加信号拟合曲线}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[width=0.8\linewidth]{exp_decrease_fit.png}
+    \caption{指数衰减信号拟合曲线}
+  \end{subfigure}
+  \caption{指数信号拟合结果}
+  \label{fig:exp_fit}
+\end{figure}
+
+拟合参数参见表\ref{tab:exp_curves_fit}。
+
+% 需在导言区加载subcaption包：\usepackage{subcaption}
+\begin{table}[htbp]
+  \centering
+  \caption{指数增长与衰减曲线拟合结果对比}
+  % 子表1：指数增长曲线（居左）
+  \begin{subtable}[t]{0.48\textwidth}
+    \centering
+    \caption{指数增长曲线}
+    \begin{tabular}{c c c c}
+      \hline
+      \multicolumn{4}{c}{\textbf{指数曲线拟合(exp1)}} \\
+      \multicolumn{4}{c}{$f(x) = a \cdot \exp(b \cdot x)$} \\
+      \hline
+      \multicolumn{4}{c}{\textbf{系数和 95\% 置信边界}} \\
+      \hline
+      & 值 & 下限 & 上限 \\
+      \hline
+      $a$ & 0.0161 & 0.0147 & 0.0175 \\
+      $b$ & 2.4915 & 2.4514 & 2.5315 \\
+      \hline
+      \multicolumn{4}{c}{\textbf{拟合优度}} \\
+      \hline
+      &  & & 值  \\
+      \hline
+      SSE &  & & 0.0077  \\
+      $R^2$  & & & 0.9998  \\
+      DFE  & & & 11  \\
+      调整 $R^2$ & & & 0.9997  \\
+      RMSE & & & 0.0265  \\
+      \hline
+    \end{tabular}
+    \label{tab:sub_exp_growth}
+  \end{subtable}
+  \hfill % 两子表间距
+  % 子表2：指数衰减曲线（居右）
+  \begin{subtable}[t]{0.48\textwidth}
+    \centering
+    \caption{指数衰减曲线}
+    \begin{tabular}{c c c c}
+      \hline
+      \multicolumn{4}{c}{\textbf{指数曲线拟合(exp1)}} \\
+      \multicolumn{4}{c}{$f(x) = a \cdot \exp(b \cdot x)$} \\
+      \hline
+      \multicolumn{4}{c}{\textbf{系数和 95\% 置信边界}} \\
+      \hline
+      & 值 & 下限 & 上限 \\
+      \hline
+      $a$ & 387.63 & 266 & 509.27 \\
+      $b$ & -2.7171 & -2.901 & -2.5333 \\
+      \hline
+      \multicolumn{4}{c}{\textbf{拟合优度}} \\
+      \hline
+      &  & & 值  \\
+      \hline
+      SSE &  & & 0.1782  \\
+      $R^2$   & & & 0.9948  \\
+      DFE &  & & 11  \\
+      调整 $R^2$ &  & & 0.9943  \\
+      RMSE &  & & 0.1273  \\
+      \hline
+    \end{tabular}
+    \label{tab:sub_exp_decay}
+  \end{subtable}
+  \label{tab:exp_curves_fit}
+\end{table}
+
+
+\newpage
+\subsubsection{常见信号的绘制}
+  使用 MATLAB 绘制常见信号的代码如下：
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ]        
+
+    x = linspace(-8,8,200); % 生成时间序列
+    % 信号处理
+    y1 = exp(0.3 .* x); % 指数增长信号
+    y2 = exp(-0.3 .* x); % 指数衰减信号
+    y3 = sin(x).*exp(0.15.*x); % 正弦指数增长信号
+    y4 = sin(x).*exp(-0.15*x); % 正弦指数衰减信号
+    y5 = sinc(1.5.*x./pi); % 采样信号
+    y6 = exp(-(0.3.*x).^2); % 钟形信号
+    % 绘图
+    figure;
+    subplot(3,2,1);
+    plot(x,y1);
+    title('指数增长信号'); 
+    subplot(3,2,2);
+    plot(x,y2);
+    title('指数衰减信号'); 
+    subplot(3,2,3);
+    plot(x, y3);
+    title('正弦指数增长信号');
+    subplot(3,2,4);
+    plot(x, y4);
+    title('正弦指数衰减信号'); 
+    subplot(3,2,5);
+    plot(x, y5);
+    title('采样信号'); 
+    subplot(3,2,6);
+    plot(x, y6);
+    title('钟形信号'); 
+    % 保存图像
+    handle = gcf; % 当前图形句柄
+    saveas(handle,'class1_1.jpg')
+
+    
+\end{lstlisting}
+
+导出图像如图\ref{fig:common_signals}所示。
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{sixSignal.jpg}
+  \caption{常见信号波形图}
+  \label{fig:common_signals}
+\end{figure}
+
+
+\end{document}
+

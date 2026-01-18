@@ -1,0 +1,835 @@
+% ! TEX root=../report.tex
+
+\documentclass[../report.tex]{subfiles}
+\begin{document}
+\section{波形的分解与合成实验}
+\subsection{实验目的}
+1. 了解和熟悉波形分解与合成原理；
+2. 了解和掌握用傅里叶级数进行谐波分析的方法。
+
+\subsection{实验器材}
+\begin{itemize}
+    \item 双踪示波器：1台
+    \item 数字万用表：1台
+    \item 信号源及频率计模块（S2模块）：1块
+    \item 数字信号处理模块（S4模块）：1块
+\end{itemize}
+
+\subsection{实验原理}
+\subsubsection{信号的频谱与测量}
+信号的时域特性和频域特性是对信号的两种不同描述方式。对于满足狄利克莱（Dirichlet）条件的周期信号 \(f(t)\)，可展开为三角形式的傅里叶级数，在区间 \([-T/2, T/2]\) 内表示为：
+\[f(t)=a_0+\sum_{n=1}^{\infty}\left(a_n \cos n \Omega t+b_n \sin n \Omega t\right)\]
+其中 \(a_0\) 为直流分量，\(a_n\)、\(b_n\) 为各次谐波的系数，\(\Omega = 2\pi/T\) 为基波角频率。
+
+信号的时域与频域特性的内在联系如图7-1所示：图(a)为幅度-时间-频率三维图形，图(b)为时域波形图，图(c)为振幅频谱图。周期信号的振幅频谱具有离散性、谐波性、收敛性三大性质。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{./7-1.png}
+    \caption{信号的时域特性和频域特性}
+    \label{fig:time_freq_char}
+\end{figure}
+
+测量方法分为同时分析法和顺序分析法，本实验采用同时分析法，其原理是利用多个滤波器，将中心频率分别调至被测信号的各次谐波频率，可在信号发生的实际时间内同时测得所有频率分量，原理框图如图7-2所示。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{./7-2.png}
+    \caption{用同时分析法进行频谱分析的原理框图}
+    \label{fig:spectrum_analysis_principle}
+\end{figure}
+
+\subsubsection{方波信号的分解（占空比50\%）}
+占空比50\%的方波信号在一个周期内的解析式为：
+\[f(t)=\begin{cases}A & 0 < t \leq \frac{T}{2} \\ -A & \frac{T}{2} < t \leq T\end{cases}\]
+其傅里叶级数系数推导如下：
+\[
+\begin{aligned}
+B_{k\omega} &= \frac{4}{T} \int_{0}^{T/2} A \sin k\omega t \, dt \\
+&= \frac{4A}{T k\omega} \left[ -\cos k\omega t \right]_{0}^{T/2} \\
+&= \frac{4A}{k\pi} \quad (k=1,3,5,7,\cdots)
+\end{aligned}
+\]
+因此，傅里叶级数展开式为：
+\[f(t)=\frac{4 A}{\pi}\left(\sin \omega t+\frac{1}{3} \sin 3 \omega t+\frac{1}{5} \sin 5 \omega t+\frac{1}{7} \sin 7 \omega t+\cdots\right)\]
+可见该信号仅含1、3、5、7……等奇次谐波分量，偶次谐波分量为0。当信号峰峰值为2V（即 \(A=1\)）时，各次谐波分量的峰值理论值如下表所示：
+
+\begin{table}[H]
+    \centering
+    \caption{占空比50\%方波信号各次谐波峰值理论值（峰峰值2V）}
+    \label{tab:50duty_square_harmonic}
+    \begin{tabular}{cc}
+        \toprule
+        谐波次数 & 峰值理论值（V） \\
+        \midrule
+        1次（基波） & 1.2732395 \\
+        3次 & 0.4244131 \\
+        5次 & 0.2546479 \\
+        7次 & 0.1818914 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{矩形信号的分解（占空比40\%）}
+矩形信号占空比为40%时，满足 \(\tau = 2T/5\)（\(\tau\) 为脉冲宽度，\(T\) 为周期），该信号为偶函数，其角频率 \(\omega = \frac{2\pi}{T}\)。
+
+傅里叶级数相关系数推导：
+\[a_0 = \frac{1}{T} \int_{-\tau/2}^{\tau/2} A \, dt = \frac{A\tau}{T}\]
+\[a_n = \frac{2}{T} \int_{-\tau/2}^{\tau/2} A \cos(n\omega t) \, dt = \frac{2A}{n\pi} \sin\left(\frac{n\pi\tau}{T}\right) = \frac{2A}{n\pi} \sin\left(\frac{2n\pi}{5}\right)\]
+
+三角级数形式：
+\[f(t)=\frac{2}{5} A+\frac{2 A T}{5 \pi} \sum_{n=1}^{\infty} S a\left(\frac{n \omega T}{5}\right) \cos(n\omega t)\]
+
+指数形式：
+\[f(t)=\frac{2A}{5} \sum_{n=-\infty}^{\infty} S a\left(\frac{n\omega T}{5}\right) e^{jn\omega t}\]
+
+当信号峰峰值为2V（\(A=1\)）时，各次谐波分量的峰值理论值如下表所示：
+
+\begin{table}[H]
+    \centering
+    \caption{占空比40\%矩形信号各次谐波峰值理论值（峰峰值2V）}
+    \label{tab:40duty_rect_harmonic}
+    \begin{tabular}{cc}
+        \toprule
+        谐波次数 & 峰值理论值（V） \\
+        \midrule
+        基波（1次） & 1.2109 \\
+        2次 & 0.3742 \\
+        3次 & 0.2495（相位与基波相反） \\
+        4次 & 0.3027（相位与基波相反） \\
+        5次 & 0 \\
+        6次 & 0.2018 \\
+        7次 & 0.1069 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{三角波信号的分解}
+三角波信号在一个周期内的解析式为：
+\[f(t)= \begin{cases}\frac{4 A}{T} t & 0 \leq t \leq \frac{T}{4} \\ -\frac{4 A}{T} t+2 A & \frac{T}{4} \leq t \leq \frac{T}{2}\end{cases}\]
+
+利用积分公式 \(\int x \sin ax \, dx = \frac{1}{a^2} \sin ax - \frac{1}{a} x \cos ax\)，推导谐波系数：
+\[
+B_{k\omega} = 
+\begin{cases}
+\frac{8A}{k^2\pi^2} & k=1,5,9,\cdots \\
+-\frac{8A}{k^2\pi^2} & k=3,7,11,\cdots
+\end{cases}
+\]
+
+傅里叶级数展开式为：
+\[f(t)=\frac{8 A}{\pi^2}\left(\sin \omega t - \frac{1}{3^2} \sin 3\omega t + \frac{1}{5^2} \sin 5\omega t - \frac{1}{7^2} \sin 7\omega t + \cdots\right)\]
+
+当 \(A=1\) 时，各次谐波分量的峰值理论值如下表所示：
+
+\begin{table}[H]
+    \centering
+    \caption{三角波信号各次谐波峰值理论值（\(A=1\)）}
+    \label{tab:triangular_harmonic}
+    \begin{tabular}{cc}
+        \toprule
+        谐波次数 & 峰值理论值（V） \\
+        \midrule
+        1次（基波） & 0.81056941 \\
+        3次 & 0.09006321 \\
+        5次 & 0.03242261 \\
+        7次 & 0.0165422 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{信号的分解提取与合成}
+\paragraph{信号分解提取}
+进行信号分解和提取是滤波系统的一项基本任务。当对信号的某些分量感兴趣时，可利用选频滤波器提取有用部分，滤除其他部分。数字信号处理模块（S4模块）内置8个滤波器（1个低通、6个带通、1个高通），可将复杂信号分解为各次谐波分量，分解后的8路信号分别从测试点TP1~TP8输出（TP1~TP7对应1~7次谐波，TP8对应8次以上高次谐波）。
+
+\paragraph{信号合成}
+矩形脉冲信号通过8路滤波器输出的各次谐波分量，DSP将选中的谐波分量相加后从TP8输出。谐波的叠加组合通过S4模块的8位拨码开关S3控制（闭合为参与合成）：第1位对应基波，第2位对应二次谐波，依此类推，8位开关均闭合时各次谐波全部参与合成。分解前的原信号可通过TP9观测，此时合成波形应与原信号一致。
+
+图7-3为MATLAB仿真的方波谐波合成结果，直观展示了不同谐波叠加次数对合成波形的影响：
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{7-3}
+    \caption{方波（500Hz、2V、50\%占空比）谐波合成仿真结果}
+    \label{fig:square_synthesis_simulation}
+    % 替换tablenotes，用普通文本注释，避免依赖threeparttable包
+    \small\centering  % 小号字体+居中对齐
+    左1图：1次谐波；右1图：1+3次谐波；左2图：1+3+5次谐波；右2图：1+3+5+7次谐波；左3图：1+3+5+7+9次谐波；右3图：1+3+5+7+9+11次谐波
+\end{figure}
+
+\subsection{实验步骤}
+\subsubsection{方波的分解}
+1. 模块关电，连接信号源及频率计模块S2的信号输出端口P2与数字信号处理模块S4的P9端口；
+2. 模块开电，设置S2模块，使P2输出幅度2V、频率500Hz的方波（占空比调为50%）；
+3. 将S4模块的拨动开关SW1调整为“00000101”，按下复位键S2，选择矩形信号分解及合成功能；将拨码开关S3拨为“00000000”；
+4. 用示波器分别观测S4模块TP1~TP7输出的1~7次谐波波形及TP8输出的8次以上高次谐波波形，拍照记录；
+5. 保持信号幅度2V、频率500Hz不变，将方波占空比调整为40%，重复步骤4的观测与记录；
+6. 按表7-4、表7-5要求，记录两种占空比下方波信号各次谐波的测量值（电压峰峰值）。
+
+\begin{table}[H]
+    \centering
+    \caption{占空比50\%（\(\tau/T=1/2\)）矩形脉冲信号的频谱（\(f=500Hz\)，\(E=2V\)）}
+    \label{tab:50duty_spectrum_data}
+    \begin{tabular}{ccccccccc}
+        \toprule
+        谐波频率 & \(1f\) & \(2f\) & \(3f\) & \(4f\) & \(5f\) & \(6f\) & \(7f\) & \(8f\)以上 \\
+        \midrule
+        理论值（电压峰峰值，V） &  &  &  &  &  &  &  &  \\
+        测量值（电压峰峰值，V） &  &  &  &  &  &  &  &  \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{占空比40\%（\(\tau/T=2/5\)）矩形脉冲信号的频谱（\(f=500Hz\)，\(E=2V\)）}
+    \label{tab:40duty_spectrum_data}
+    \begin{tabular}{ccccccccc}
+        \toprule
+        谐波频率 & \(1f\) & \(2f\) & \(3f\) & \(4f\) & \(5f\) & \(6f\) & \(7f\) & \(8f\)以上 \\
+        \midrule
+        理论值（电压峰峰值，V） &  &  &  &  &  &  &  &  \\
+        测量值（电压峰峰值，V） &  &  &  &  &  &  &  &  \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{方波的合成}
+本任务仅做占空比50%、频率400Hz的方波合成：
+1. 保持S4模块SW1为“00000101”，将S2模块设置为输出幅度2V、频率400Hz、占空比50%的方波；
+2. 用示波器观测S4模块TP8（合成输出）和S2模块P2（原信号），按表7-6要求设置拨码开关S3，观察并记录各组合的合成波形；
+3. 每次切换S3状态后，对比合成波形与原信号的差异，重点观察谐波叠加次数对合成波形逼近原信号的影响。
+
+\begin{table}[H]
+    \centering
+    \caption{矩形脉冲信号的各次谐波合成要求}
+    \label{tab:harmonic_synthesis_requirements}
+    \begin{tabular}{cc}
+        \toprule
+        拨码开关S3状态 & 合成要求 \\
+        \midrule
+        10000000 & 基波单独合成 \\
+        11000000 & 基波+二次谐波合成 \\
+        10100000 & 基波+三次谐波合成 \\
+        10010000 & 三次+五次谐波合成 \\
+        10001000 & 基波+五次谐波合成 \\
+        10101000 & 基波+三次+五次谐波合成 \\
+        11111111 & 所有谐波合成 \\
+        11011111 & 无三次谐波的其他谐波合成 \\
+        11110111 & 无五次谐波的其他谐波合成 \\
+        01111111 & 无八次以上高次谐波的其他谐波合成 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{三角波的分解与合成}
+1. 模块关电，保持P2与P9的连接，S4模块SW1仍设为“00000101”；
+2. 模块开电，设置S2模块，使P2输出幅度2V、频率400Hz的三角波；
+3. 三角波分解：将S3拨为“00000000”，用示波器观测TP1~TP7的1、3、5、7次谐波波形，拍照记录，按表7-7记录各次谐波的测量值；
+4. 三角波合成：按表7-8要求设置拨码开关S3，观测TP8的合成波形，拍照记录，对比不同合成组合与原三角波的差异。
+
+\begin{table}[H]
+    \centering
+    \caption{三角波信号的频谱（\(f=400Hz\)，\(A=1V\)）}
+    \label{tab:triangular_spectrum_data}
+    \begin{tabular}{ccccccccc}
+        \toprule
+        谐波频率 & \(1f\) & \(2f\) & \(3f\) & \(4f\) & \(5f\) & \(6f\) & \(7f\) & \(8f\)以上 \\
+        \midrule
+        理论值（电压峰峰值，V） &  &  & &  &  &  &  &  \\
+        测量值（电压峰峰值，V） &  &  &  &  &  &  &  &  \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{三角波信号的各次谐波合成要求}
+    \label{tab:triangular_synthesis_requirements}
+    \begin{tabular}{cc}
+        \toprule
+        拨码开关S3状态 & 合成要求 \\
+        \midrule
+        10000000 & 基波单独合成 \\
+        10100000 & 基波+三次谐波合成 \\
+        10001000 & 基波+五次谐波合成 \\
+        10101000 & 基波+三次+五次谐波合成 \\
+        10101010 & 基波+三次+五次+七次谐波合成 \\
+        11111111 & 所有谐波合成 \\
+        11011111 & 无三次谐波的其他谐波合成 \\
+        11110111 & 无五次谐波的其他谐波合成 \\
+        11111101 & 无七次谐波的其他谐波合成 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{实验结果}
+% 和各个实验步骤对应
+\subsubsection{方波的分解}
+\paragraph{占空比50\%方波分解结果}
+分解后各次谐波波形如图\ref{fig:7-5-1-1}所示：
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}
+      {0.45\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{7-5-1-1-1.png}
+      \caption{1次谐波}
+    \end{subfigure}
+    \begin{subfigure}
+      {0.45\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{7-5-1-1-2.png}
+      \caption{3次谐波}
+    \end{subfigure}
+    \begin{subfigure}
+      {0.45\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{7-5-1-1-3.png}
+      \caption{5次谐波}
+    \end{subfigure}
+    \begin{subfigure}
+      {0.45\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{7-5-1-1-4.png}
+      \caption{7次谐波}
+    \end{subfigure}
+    \caption{占空比50\%方波分解后各次谐波波形}
+    \label{fig:7-5-1-1}
+\end{figure}
+各次谐波测量值记录在表\ref{tab:7-5-1-1}中。
+
+
+\begin{table}[H]
+    \centering
+    \caption{占空比50\%（\(\tau/T=1/2\)）矩形脉冲信号的频谱（\(f=500Hz\)，\(E=2V\)）}
+    \label{tab:7-5-1-1}
+    \begin{tabular}{ccccccccc}
+        \toprule
+        谐波频率 & \(1f\) & \(2f\) & \(3f\) & \(4f\) & \(5f\) & \(6f\) & \(7f\) & \(8f\)以上 \\
+        \midrule
+        理论值（电压峰峰值，V） & 2.546 & 0 & 0.849 & 0 & 0.509 & 0 & 0.364 & - \\
+        测量值（电压峰峰值，V） & 2.060 & 0.320 & 0.940 & 0.140 & 0.620 & 0.140 & 0.500 & - \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\paragraph{占空比40\%方波分解结果}
+分解后各次谐波波形如图\ref{fig:7-5-1-2}所示：
+\begin{figure}
+  \centering
+  \begin{subfigure}
+    {0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-1-2-1.png}
+    \caption{1次谐波}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-1-2-2.png}
+    \caption{2次谐波}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-1-2-2.png}
+    \caption{3次谐波}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-1-2-4.png}
+    \caption{4次谐波}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-1-2-3.png}
+    \caption{5次谐波}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-1-2-6.png}
+    \caption{6次谐波}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-1-2-4.png}
+    \caption{7次谐波}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-1-2-8.png}
+    \caption{8次以上高次谐波}
+  \end{subfigure}
+  \caption{占空比40\%方波分解后各次谐波波形}
+  \label{fig:7-5-1-2}
+\end{figure}
+
+各次谐波测量值记录在表\ref{tab:7-5-1-2}中。
+
+\begin{table}[H]
+    \centering
+    \caption{占空比40\%（\(\tau/T=2/5\)）矩形脉冲信号的频谱（\(f=500Hz\)，\(E=2V\)）}
+    \label{tab:7-5-1-2}
+    \begin{tabular}{ccccccccc}
+        \toprule
+        谐波频率 & \(1f\) & \(2f\) & \(3f\) & \(4f\) & \(5f\) & \(6f\) & \(7f\) & \(8f\)以上 \\
+        \midrule
+        理论值（电压峰峰值，V） & 2.421 & 0.748 & 0.499 & 0.606 & 0.000 & 0.404 & 0.214 & - \\
+        测量值（电压峰峰值，V） & 2.240 & 0.740 & 0.620 & 0.660 & 0.180 & 0.500 & 0.380 & - \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{方波的合成}
+方波合成结果如图\ref{fig:7-5-2}所示：
+
+% 对应表格     \label{tab:triangular_synthesis_requirements}
+\begin{figure}
+    \centering
+    \begin{subfigure}
+      {0.4\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{7-5-2-1.png}
+      \caption{基波单独合成}
+    \end{subfigure}
+    \begin{subfigure}
+      {0.4\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{7-5-2-2.png}
+      \caption{基波+二次谐波合成}
+    \end{subfigure}
+    \begin{subfigure}
+      {0.4\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{7-5-2-3.png}
+      \caption{基波+三次谐波合成}
+    \end{subfigure}
+    \begin{subfigure}
+      {0.4\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{7-5-2-4.png}
+      \caption{三次+五次谐波合成}
+    \end{subfigure}
+    \begin{subfigure}
+      {0.4\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{7-5-2-5.png}
+      \caption{基波+五次谐波合成}
+    \end{subfigure}
+    \begin{subfigure}
+      {0.4\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{7-5-2-6.png}
+      \caption{基波+三次+五次谐波合成}
+    \end{subfigure}
+    \begin{subfigure}
+      {0.4\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{7-5-2-7.png}
+      \caption{所有谐波合成}
+    \end{subfigure}
+    \begin{subfigure}
+      {0.4\textwidth}
+      \centering
+      \includegraphics[width=\textwidth]{7-5-2-8.png}
+      \caption{无三次谐波的其他谐波合成}
+    \end{subfigure}
+    \caption{方波各次谐波合成结果}
+    \label{fig:7-5-2}
+\end{figure}
+
+\subsubsection{三角波的分解与合成}
+\paragraph{三角波分解结果}
+三角波分解后各次谐波波形如图\ref{fig:7-5-3-1}所示：
+\begin{figure}
+  \centering
+  \begin{subfigure}
+    {0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-3-1-1.png}
+    \caption{1次谐波}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-3-1-2.png}
+    \caption{3次谐波}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-3-1-3.png}
+    \caption{5次谐波}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-3-1-4.png}
+    \caption{7次谐波}
+  \end{subfigure}
+  \caption{三角波分解后各次谐波波形}
+  \label{fig:7-5-3-1}
+\end{figure}
+
+各次谐波测量值记录在表\ref{tab:7-5-3-1}中。
+
+\begin{table}[H]
+    \centering
+    \caption{三角波信号的频谱（\(f=400Hz\)，\(A=2V\)）}
+    \label{tab:7-5-3-1}
+    \begin{tabular}{ccccccccc}
+        \toprule
+        谐波频率 & \(1f\) & \(2f\) & \(3f\) & \(4f\) & \(5f\) & \(6f\) & \(7f\) & \(8f\)以上 \\
+        \midrule
+        理论值（电压峰峰值，V） & 1.621 & 0 & 0.180 & 0 & 0.065 & 0 & 0.033 & - \\
+        测量值（电压峰峰值，V） & 1.180 & & 0.300 & & 0.220 & & 0.180 & - \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\paragraph{三角波合成结果}
+% 对应表格      \label{tab:triangular_synthesis_requirements}
+三角波合成结果如图\ref{fig:7-5-3-2}所示：
+\begin{figure}
+  \centering
+  \begin{subfigure}
+    {0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-3-2-1.png}
+    \caption{基波单独合成}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-3-2-2.png}
+    \caption{基波+三次谐波合成}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-3-2-3.png}
+    \caption{基波+五次谐波合成}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-3-2-4.png}
+    \caption{基波+三次+五次谐波合成}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-3-2-5.png}
+    \caption{基波+三次+五次+七次谐波合成}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-3-2-6.png}
+    \caption{所有谐波合成}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-3-2-7.png}
+    \caption{无三次谐波的其他谐波合成}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.4\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{7-5-3-2-8.png}
+    \caption{无五次谐波的其他谐波合成}
+  \end{subfigure}
+  \caption{三角波各次谐波合成结果}
+  \label{fig:7-5-3-2}
+\end{figure}
+
+\newpage
+\subsection{实验程序及运行结果}
+
+\textbf{以下程序中，采样点数N均取64,频谱图中，传统方法计算结果用红色曲线表示，FFT计算结果用蓝色杆状图表示。}
+
+\subsubsection{任务一}
+任务一代码如下所示：
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+t_length = 20;
+N = 64;
+
+T = t_length/N;
+t = (0:N-1)*T - t_length/2;
+
+x = sin(2 .* pi .*(t - 1))./(pi .* (t - 1));
+
+w_length = 2*pi/T;
+W = w_length/N;
+w = (0:N-1)*W;
+disp('Computing FFT...');
+tic
+X = T*fft(x,N);
+X = fftshift(X);
+toc
+x_num = x;
+w_num = linspace(-w_length/2, w_length/2, N);
+disp('Computing Numerical FT...');
+tic
+W_num = x_num .* exp(-1j * w_num' * t);
+toc
+
+figure;
+subplot(2,1,1);
+stem(t,x);
+title('Signal x(t)');
+
+subplot(2,1,2);
+stem(w-w_length/2,abs(X));
+hold on;
+plot(w_num, abs(sum(W_num,2))*T, 'r');
+title('Magnitude Spectrum of x(t)');
+hold off;
+
+
+saveas(gcf, './p1.png');
+\end{lstlisting}
+
+运行结果如图\ref{fig:7-task1_result}所示：
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./matlab/p1.png}
+    \caption{任务一运行结果}
+    \label{fig:7-task1_result}
+\end{figure}
+
+\subsubsection{任务二}
+
+任务二代码如下所示：
+
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+
+t_length = 20;
+N = 64;
+
+T = t_length/N;
+t = (0:N-1)*T - t_length/2;
+
+x = (t + 2).*(t>=-2&t<-1)+1.*(t>=-1&t<=1)+(2 - t).*(t>1&t<=2);
+
+w_length = 2*pi/T;
+W = w_length/N;
+w = (0:N-1)*W;
+disp('Computing FFT...');
+tic
+X = T*fft(x,N);
+X = fftshift(X);
+toc
+time_of_fft = toc - tic;
+
+x_num = x;
+w_num = linspace(-w_length/2, w_length/2, N);
+disp('Computing Numerical FT...');
+tic
+W_num = x_num .* exp(-1j * w_num' * t);
+toc
+toc_of_num = toc - tic;
+figure;
+subplot(2,1,1);
+stem(t,x);
+title('Signal x(t)');
+
+subplot(2,1,2);
+stem(w-w_length/2,abs(X));
+hold on;
+plot(w_num, abs(sum(W_num,2))*T, 'r');
+title('Magnitude Spectrum of x(t)');
+hold off;
+
+saveas(gcf, './p2.png');
+\end{lstlisting}
+
+运行结果如图\ref{fig:7-task2_result}所示：
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./matlab/p2.png}
+    \caption{任务二运行结果}
+    \label{fig:7-task2_result}
+\end{figure}
+
+
+\subsubsection{任务三}
+任务三代码如下所示：
+
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+
+t_length = 10;
+N = 64;
+
+T = t_length/N;
+t = (0:N-1)*T - t_length/2;
+
+x = heaviside(t+0.5) - heaviside(t-0.5);
+w_length = 2*pi/T;
+W = w_length/N;
+w = (0:N-1)*W;
+disp('f(t) Computing FFT...');
+tic
+X = T*fft(x,N);
+X = fftshift(X);
+toc
+
+x_num = x;
+w_num = linspace(-w_length/2, w_length/2, N);
+disp('Computing Numerical FT...');
+tic
+W_num = x_num .* exp(-1j * w_num' * t);
+toc
+
+figure;
+subplot(3,2,1);
+stem(t,x);
+title('Signal x(t)');
+
+subplot(3,2,2);
+stem(w-w_length/2,abs(X));
+hold on;
+plot(w_num, abs(sum(W_num,2))*T, 'r');
+title('Magnitude Spectrum of x(t)');
+hold off;
+
+x = heaviside(t/2+0.5) - heaviside(t/2-0.5);
+w_length = 2*pi/T;
+W = w_length/N;
+w = (0:N-1)*W;
+disp('f(t/2) Computing FFT...');
+tic
+X = T*fft(x,N);
+X = fftshift(X);
+toc
+
+x_num = x;
+w_num = linspace(-w_length/2, w_length/2, N);
+disp('Computing Numerical FT...');
+tic
+W_num = x_num .* exp(-1j * w_num' * t);
+toc
+
+subplot(3,2,3);
+stem(t,x);
+title('Signal x(t)');
+
+subplot(3,2,4);
+stem(w-w_length/2,abs(X));
+hold on;
+plot(w_num, abs(sum(W_num,2))*T, 'r');
+title('Magnitude Spectrum of x(t)');
+hold off;
+
+
+x = heaviside(2.*t+0.5) - heaviside(2.*t-0.5);
+w_length = 2*pi/T;
+W = w_length/N;
+w = (0:N-1)*W;
+disp('f(2t) Computing FFT...');
+tic
+X = T*fft(x,N);
+X = fftshift(X);
+toc
+
+x_num = x;
+w_num = linspace(-w_length/2, w_length/2, N);
+disp('Computing Numerical FT...');
+tic
+W_num = x_num .* exp(-1j * w_num' * t);
+toc
+
+subplot(3,2,5);
+stem(t,x);
+title('Signal x(t)');
+
+subplot(3,2,6);
+stem(w-w_length/2,abs(X));
+hold on;
+plot(w_num, abs(sum(W_num,2))*T, 'r');
+title('Magnitude Spectrum of x(t)');
+hold off;
+
+
+saveas(gcf, './p3.png');
+\end{lstlisting}
+
+运行结果如图\ref{fig:7-task3_result}所示：
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{./matlab/p3.png}
+    \caption{任务三运行结果}
+    \label{fig:7-task3_result}
+\end{figure}
+
+终端输出结果如下所示：
+\begin{lstlisting}[language=Matlab, 
+                  caption={任务三终端输出结果}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ]
+
+f(t) Computing FFT...
+历时 0.000569 秒。
+Computing Numerical FT...
+历时 0.000585 秒。
+f(t/2) Computing FFT...
+历时 0.000154 秒。
+Computing Numerical FT...
+历时 0.000244 秒。
+f(2t) Computing FFT...
+历时 0.000144 秒。
+Computing Numerical FT...
+历时 0.000244 秒。
+\end{lstlisting}
+\end{document}

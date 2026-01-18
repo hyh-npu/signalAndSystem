@@ -1,0 +1,378 @@
+% ! TEX root = ../report.tex
+%
+
+\documentclass[a4paper]{article}
+\usepackage{ctex}       
+% 修正：geometry参数head→top（head是页眉高度，此处应为上边距）
+\usepackage[left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm]{geometry}
+\usepackage{graphicx}   
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{multirow} 
+% 移除冲突包：subcaption与subfigure冲突，且subfigure是旧包，此处用subcaption足够
+% \usepackage{subfigure}
+% 修正：hyperref放在最后加载，避免与其他包冲突
+\usepackage{hyperref}
+\usepackage{float}
+
+
+\begin{document}
+
+\section{阶跃响应和冲激响应}
+\subsection{实验目的}
+\begin{itemize}
+  \item 观察和测量RLC串联电路的阶跃响应与冲激响应的波形和有关参数，并研究其电路元件参数变化对响应的影响。
+  \item 掌握有关信号时域的测量分析方法。
+\end{itemize}
+
+\subsection{实验原理}
+\subsubsection{}
+阶跃响应与阶跃激励的关系简单的表示为：
+\[g(t)=H[u(t)] 或者 u(t) \rightarrow g(t)\]
+\subsubsection{}
+RLC串联电路的阶跃响应与冲激响应实验其响应有以下三种状态：
+\begin{itemize}
+  \item 欠阻尼状态：$R^2<\frac{4L}{C}$，响应波形为振荡衰减波形。
+  \item 临界阻尼状态：$R^2=\frac{4L}{C}$，响应波形为最快的非振荡衰减波形。
+  \item 过阻尼状态：$R^2>\frac{4L}{C}$，响应波形为非振荡衰减波形。
+\end{itemize}
+\subsubsection{}
+相应的动态指标定义如下：
+\begin{itemize}
+    % 修正：闭合数学环境，文字移出$外
+    \item 上升时间 $t_r$：$y(t)$从$0$到第一次上升到稳态值$y(\infty)$的时间。
+    \item 峰值时间 $t_p$：$y(t)$达到第一次峰值的时间。
+    \item 调节时间 $t_s$：$y(t)$进入并保持在稳态值$y(\infty)$的$5\%$范围内所需的时间。
+    \item 最大超调量 $\delta_p$：$y(t)$达到的最大峰值与稳态值之差与稳态值之比，通常以百分数表示。也即
+    % 修正：超调量公式逻辑（100%不应在分母）+ 规范下标
+    \[\delta_p=\frac{y_{max}-y(\infty)}{y(\infty)} \times 100\%\]
+\end{itemize}
+\subsubsection{}
+在满足条件的情况下，RC电路可以对输入信号进行微分,微分电路如图\ref{fig:dif_cir},微分电路响应如图\ref{fig:dif_echo}。
+
+\subsection{实验器材}
+\begin{itemize}
+    \item 信号源及频率计模块——一块
+    \item 一阶网络模块——一块
+    \item 数字万用表——一台
+    \item 双踪示波器——一台
+\end{itemize}
+
+\subsection{实验步骤与数据记录}
+
+\subsubsection{任务一：阶跃响应实验波形观察与参数测量}
+设激励信号为方波，频率为500Hz。模块关电，进行连线。
+\begin{enumerate}
+    \item 模块开电，调整激励信号源为方波（即从模块S2中的P2端口引出方波信号）；调节频率调节旋钮ROL1，使频率计示数\( f=500\mathrm{Hz} \)。
+    \item 连接模块S2的方波信号输出端P2至模块S5中的P12。
+    \item 示波器CH1接于TP14，调整W1，使电路分别工作于欠阻尼、临界和过阻尼三种状态，观察各种状态下的输出波形，用万用表测量与波形对应的P12和P13两点间的电阻值（测量时应断开电源），并将实验数据填入表\ref{tab:step_response}中。
+    \item TP12为输入信号波形的测量点，可把示波器的CH2接于TP12上，便于波形比较。
+\end{enumerate}
+
+\begin{table}[htbp]
+  \centering
+  \caption{阶跃响应实验记录表}
+  \label{tab:step_response}
+  \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccc@{}}
+    \toprule
+    % 修正：multirow语法（行数+宽度+内容）
+    \multirow{2}{*}{参数测量} & \multicolumn{3}{c}{状态} \\
+    \cmidrule{2-4}
+     & 欠阻尼状态\( R<2\sqrt{\frac{L}{C}} \) & 临界状态\( R=2\sqrt{\frac{L}{C}} \) & 过阻尼状态\( R>2\sqrt{\frac{L}{C}} \) \\
+    \midrule
+    \( R= \) &  &  &  \\ 
+    TP12激励波形 &  &  &  \\
+    TP14响应波形 &  &  &  \\
+    \bottomrule
+  \end{tabular*}
+  \vspace{0.5em}
+  \small 注：描绘波形要使三种状态的X轴坐标（扫描时间）一致。
+\end{table}
+
+\subsubsection{任务二：冲激响应的波形观察}
+冲激信号是由阶跃信号经过微分电路而得到。模块关电，进行连线。
+\begin{enumerate}
+    \item 将方波输入信号接于P10（输入信号频率与幅度不变）。
+    \item 连接P11与P12。
+    \item 将示波器的CH1接于TP11，观察经微分后响应波形（等效为冲激激励信号）。
+    \item 将示波器的CH2接于TP14，调整W1，使电路分别工作于欠阻尼、临界和过阻尼三种状态。
+    \item 观察电路处于以上三种状态时激励信号与响应信号的波形，并将观察结果填入表\ref{tab:impulse_response}中。
+\end{enumerate}
+
+\begin{table}[htbp]
+  \centering
+  \caption{冲激响应实验记录表}
+  \label{tab:impulse_response}
+  \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccc@{}}
+    \toprule
+    % 修正：multirow语法（行数+宽度+内容）
+    \multirow{2}{*}{参数测量} & \multicolumn{3}{c}{状态} \\
+    \cmidrule{2-4}
+     & 欠阻尼状态\( R<2\sqrt{\frac{L}{C}} \) & 临界状态\( R=2\sqrt{\frac{L}{C}} \) & 过阻尼状态\( R>2\sqrt{\frac{L}{C}} \) \\
+    \midrule
+    \( R= \) &  &  &  \\
+    TP11激励波形 &  &  &  \\
+    TP14响应波形 &  &  &  \\
+    \bottomrule
+  \end{tabular*}
+\end{table}
+
+\subsection{实验结果及结论}
+
+阶跃响应的波形如图\ref{fig:sqr_cir}所示，冲激响应的波形如图\ref{fig:imp_cir}所示。
+\begin{figure}
+  \caption{方波输入(阶跃响应)的波形观察}
+  % 修正：subfigure必须指定宽度参数
+  \begin{subfigure}{0.3\textwidth}
+    \caption{欠阻尼状态}
+    \includegraphics[width=\linewidth]{./sqr1.jpg}
+  \end{subfigure}
+  \begin{subfigure}{0.3\textwidth}
+    \caption{临界阻尼状态}
+    \includegraphics[width=\linewidth]{./sqr2.jpg}
+  \end{subfigure}
+  \begin{subfigure}{0.3\textwidth}
+    \caption{过阻尼状态}
+    \includegraphics[width=\linewidth]{./sqr3.jpg}
+  \end{subfigure}
+  \label{fig:sqr_cir}
+\end{figure}
+
+\begin{figure}
+  \caption{脉冲输入(冲激响应)的波形观察}
+  % 修正：subfigure必须指定宽度参数
+  \begin{subfigure}{0.3\textwidth}
+    \caption{欠阻尼状态}
+    \includegraphics[width=\linewidth]{./imp1}
+  \end{subfigure}
+  \begin{subfigure}{0.3\textwidth}
+    \caption{临界阻尼状态}
+    \includegraphics[width=\linewidth]{./imp2.jpg}
+  \end{subfigure}
+  \begin{subfigure}{0.3\textwidth}
+    \caption{过阻尼状态}
+    \includegraphics[width=\linewidth]{./imp3.jpg}
+  \end{subfigure}
+  \label{fig:imp_cir}
+\end{figure}
+
+根据波形可填表\ref{tab:step_response}和表\ref{tab:impulse_response}如下：
+\begin{table}[h!]
+  \centering
+  \caption{阶跃响应实验记录表（填写结果）}
+  \label{tab:step_response_filled}
+  \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccc@{}}
+    \toprule
+    \multirow{2}{*}{参数测量} & \multicolumn{3}{c}{状态} \\
+    \cmidrule{2-4}
+     & 欠阻尼状态\( R<2\sqrt{\frac{L}{C}} \) & 临界状态\( R=2\sqrt{\frac{L}{C}} \) & 过阻尼状态\( R>2\sqrt{\frac{L}{C}} \) \\
+    \midrule
+    \( R= \) &  &  &  \\ 
+    TP12激励波形 & 方波 & 方波 & 方波 \\
+    TP14响应波形 & 振荡衰减波形 & 最快非振荡衰减波形 & 非振荡衰减波形 \\
+    \bottomrule
+  \end{tabular*}
+\end{table}
+
+\begin{table}[h!]
+  \centering
+  \caption{冲激响应实验记录表（填写结果）}
+  \label{tab:impulse_response_filled}
+  \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lccc@{}}
+    \toprule
+    \multirow{2}{*}{参数测量} & \multicolumn{3}{c}{状态} \\
+    \cmidrule{2-4}
+     & 欠阻尼状态\( R<2\sqrt{\frac{L}{C}} \) & 临界状态\( R=2\sqrt{\frac{L}{C}} \) & 过阻尼状态\( R>2\sqrt{\frac{L}{C}} \) \\
+    \midrule
+    \( R= \) &  &  &  \\
+    TP11激励波形 & 冲激波形 & 冲激波形 & 冲激波形 \\
+    TP14响应波形 & 振荡衰减波形 & 最快非振荡衰减波形 & 非振荡衰减波形 \\
+    \bottomrule
+  \end{tabular*}
+\end{table}
+\subsection{实验程序及运行结果}
+\subsubsection{问题一}
+
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ]        
+
+t = sym('t');
+
+ut = heaviside(t);
+
+f1 = (2 - exp(-2*t)) .* ut;
+
+f2 = cos(pi * t /2)* (heaviside(t) - heaviside(t-4));
+
+f3 = exp(t)* cos(t)* ut;
+
+f4 = 2/3 *t *heaviside(t +2);
+
+figure;
+
+subplot(2,2,1);
+fplot(f1);
+title("signal 1");
+
+subplot(2,2,2);
+fplot(f2);
+title("signal 2");
+
+subplot(2,2,3);
+fplot(f3);
+title("signal 3");
+
+subplot(2,2,4);
+fplot(f4);
+title("signal 4");
+
+saveas(gcf, './p1_signals.png');
+\end{lstlisting}
+
+运行结果如下图\ref{fig:p1}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./matlab/p1_signals.png}
+  \caption{问题一信号波形}
+  \label{fig:p1}
+\end{figure}
+
+\subsubsection{问题二}
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ]  
+
+t = sym('t');
+
+f = 2*heaviside(t) - 2*heaviside(t-1) + heaviside (t-1) - heaviside(t-2);
+
+f1 = subs(f, t, -t);
+
+f2 = subs(f, t, t-2);
+
+f3 = subs(f, t, 0.5*t);
+f31 = subs(f, t, 2*t);
+
+f4 = subs(f, t, 0.5*t +1);
+
+figure;
+
+subplot(2,2,1);
+fplot(f1);
+title("f(-t)");
+
+subplot(2,2,2);
+fplot(f2);
+title("f(t-2)");
+
+subplot(2,2,3);
+fplot(f3);
+hold on;
+fplot(f31);
+title("f(0.5t) and f(2t)");
+hold off;
+
+subplot(2,2,4);
+fplot(f4);
+title("f(0.5t +1)");
+
+saveas(gcf, './p2_signals.png');
+
+\end{lstlisting}
+
+
+
+运行结果如下图\ref{fig:p2}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./matlab/p2_signals.png}
+  \caption{问题二信号波形}
+  \label{fig:p2}
+\end{figure}
+
+
+\subsubsection{问题三}
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ]  
+
+t= sym('t');
+
+ft = 2* exp(j*(t+ pi/4));
+
+realf = real(ft);
+imagf = imag(ft);
+absf = abs(ft);
+angf = angle(ft);
+
+figure;
+
+subplot(2,2,1);
+fplot(t, realf);
+title('Real Part of f(t)');
+
+subplot(2,2,2);
+fplot(t, imagf);
+title('Imaginary Part of f(t)');
+
+subplot(2,2,3);
+fplot(t, absf);
+title('Magnitude of f(t)');
+
+subplot(2,2,4);
+fplot(t, angf);
+title('Phase of f(t)');
+
+saveas(gcf, './p3.png');
+
+\end{lstlisting}
+
+运行结果如下图\ref{fig:p3}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./matlab/p3_signals.png}
+  \caption{问题三信号波形}
+  \label{fig:p3}
+\end{figure}
+
+
+
+
+\end{document}
+

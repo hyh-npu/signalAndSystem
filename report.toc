@@ -1,0 +1,230 @@
+\contentsline {chapter}{课程报告}{3}{chapter*.2}%
+\contentsline {section}{\numberline {1}常用信号的分类与观察}{4}{section.0.1}%
+\contentsline {subsection}{\numberline {1.1}实验目的：}{4}{subsection.0.1.1}%
+\contentsline {subsection}{\numberline {1.2}实验器材：}{4}{subsection.0.1.2}%
+\contentsline {subsection}{\numberline {1.3}实验原理：}{4}{subsection.0.1.3}%
+\contentsline {subsubsection}{指数信号：}{4}{subsubsection*.3}%
+\contentsline {subsubsection}{指数正弦信号：}{4}{subsubsection*.4}%
+\contentsline {subsubsection}{抽样信号：}{4}{subsubsection*.5}%
+\contentsline {subsubsection}{钟形信号：}{5}{subsubsection*.6}%
+\contentsline {subsubsection}{脉冲信号：}{5}{subsubsection*.7}%
+\contentsline {subsubsection}{方波信号：}{5}{subsubsection*.8}%
+\contentsline {subsection}{\numberline {1.4}实验步骤：}{5}{subsection.0.1.4}%
+\contentsline {subsection}{\numberline {1.5}实验实验结果及结论：}{6}{subsection.0.1.5}%
+\contentsline {subsubsection}{通过示波器观察常见信号：}{6}{subsubsection*.9}%
+\contentsline {subsubsection}{指数信号数据记录}{6}{subsubsection*.11}%
+\contentsline {subsection}{\numberline {1.6}实验程序及运行结果：}{6}{subsection.0.1.6}%
+\contentsline {subsubsection}{指数信号拟合}{6}{subsubsection*.13}%
+\contentsline {subsubsection}{常见信号的绘制}{8}{subsubsection*.16}%
+\contentsline {section}{\numberline {2}阶跃响应和冲激响应}{10}{section.0.2}%
+\contentsline {subsection}{\numberline {2.1}实验目的}{10}{subsection.0.2.1}%
+\contentsline {subsection}{\numberline {2.2}实验原理}{10}{subsection.0.2.2}%
+\contentsline {subsubsection}{}{10}{subsubsection*.18}%
+\contentsline {subsubsection}{}{10}{subsubsection*.19}%
+\contentsline {subsubsection}{}{10}{subsubsection*.20}%
+\contentsline {subsubsection}{}{10}{subsubsection*.21}%
+\contentsline {subsection}{\numberline {2.3}实验器材}{10}{subsection.0.2.3}%
+\contentsline {subsection}{\numberline {2.4}实验步骤与数据记录}{11}{subsection.0.2.4}%
+\contentsline {subsubsection}{任务一：阶跃响应实验波形观察与参数测量}{11}{subsubsection*.22}%
+\contentsline {subsubsection}{任务二：冲激响应的波形观察}{11}{subsubsection*.24}%
+\contentsline {subsection}{\numberline {2.5}实验结果及结论}{11}{subsection.0.2.5}%
+\contentsline {subsection}{\numberline {2.6}实验程序及运行结果}{12}{subsection.0.2.6}%
+\contentsline {subsubsection}{问题一}{12}{subsubsection*.30}%
+\contentsline {subsubsection}{问题二}{14}{subsubsection*.32}%
+\contentsline {subsubsection}{问题三}{15}{subsubsection*.34}%
+\contentsline {section}{\numberline {3}连续时间系统的模拟}{17}{section.0.3}%
+\contentsline {subsection}{\numberline {3.1}实验目的}{17}{subsection.0.3.1}%
+\contentsline {subsection}{\numberline {3.2}实验器材}{17}{subsection.0.3.2}%
+\contentsline {subsection}{\numberline {3.3}实验原理}{17}{subsection.0.3.3}%
+\contentsline {subsubsection}{1、线性系统的模拟}{17}{subsubsection*.36}%
+\contentsline {subsubsection}{2、三种基本运算电路}{17}{subsubsection*.37}%
+\contentsline {paragraph}{a、比例放大器}{17}{paragraph*.38}%
+\contentsline {paragraph}{b、加法器}{18}{paragraph*.40}%
+\contentsline {paragraph}{c、积分器}{18}{paragraph*.42}%
+\contentsline {subsubsection}{3、一阶系统的模拟}{19}{subsubsection*.44}%
+\contentsline {subsection}{\numberline {3.4}实验步骤}{19}{subsection.0.3.4}%
+\contentsline {subsubsection}{任务一 基本运算器——加法器的观测}{19}{subsubsection*.46}%
+\contentsline {subsubsection}{任务二 基本运算器——比例放大器的观测}{20}{subsubsection*.48}%
+\contentsline {subsubsection}{任务三 基本运算器——积分器的观测}{20}{subsubsection*.50}%
+\contentsline {subsubsection}{任务四 一阶RC电路的模拟}{20}{subsubsection*.52}%
+\contentsline {subsection}{\numberline {3.5}实验结果}{21}{subsection.0.3.5}%
+\contentsline {subsubsection}{任务一：基本运算器——加法器的观测}{21}{subsubsection*.54}%
+\contentsline {subsubsection}{任务二：基本运算器——比例放大器的观测}{21}{subsubsection*.56}%
+\contentsline {subsubsection}{任务三：基本运算器——积分器的观测}{22}{subsubsection*.59}%
+\contentsline {subsubsection}{任务四：一阶RC电路的模拟}{22}{subsubsection*.61}%
+\contentsline {subsection}{\numberline {3.6}实验程序及运行结果}{22}{subsection.0.3.6}%
+\contentsline {subsubsection}{问题一运行结果}{22}{subsubsection*.63}%
+\contentsline {subsubsection}{问题二运行结果}{23}{subsubsection*.65}%
+\contentsline {subsubsection}{问题三运行结果}{24}{subsubsection*.67}%
+\contentsline {section}{\numberline {4}实验4：滤波器特性测量}{26}{section.0.4}%
+\contentsline {subsection}{\numberline {4.1}实验目的}{26}{subsection.0.4.1}%
+\contentsline {subsection}{\numberline {4.2}实验器材}{26}{subsection.0.4.2}%
+\contentsline {subsection}{\numberline {4.3}实验原理}{26}{subsection.0.4.3}%
+\contentsline {subsubsection}{初步定义}{26}{subsubsection*.69}%
+\contentsline {subsubsection}{滤波电路的分类}{27}{subsubsection*.71}%
+\contentsline {subsubsection}{滤波器特性测量方法}{28}{subsubsection*.73}%
+\contentsline {subsubsection}{模块参数与扫频设置}{28}{subsubsection*.74}%
+\contentsline {paragraph}{扫频设置方法}{28}{paragraph*.75}%
+\contentsline {paragraph}{滤波器固有参数}{28}{paragraph*.76}%
+\contentsline {subsection}{\numberline {4.4}实验步骤}{28}{subsection.0.4.4}%
+\contentsline {subsubsection}{任务一：测量低通滤波器的频响特性}{29}{subsubsection*.77}%
+\contentsline {paragraph}{逐点测量法}{29}{paragraph*.78}%
+\contentsline {paragraph}{扫频法测量}{29}{paragraph*.82}%
+\contentsline {subsubsection}{任务二：测量高通滤波器的频响特性}{29}{subsubsection*.83}%
+\contentsline {paragraph}{逐点测量法}{29}{paragraph*.84}%
+\contentsline {paragraph}{扫频法测量}{30}{paragraph*.88}%
+\contentsline {subsubsection}{任务三：测量带通滤波器的频响特性}{30}{subsubsection*.89}%
+\contentsline {paragraph}{逐点测量法}{30}{paragraph*.90}%
+\contentsline {paragraph}{扫频法测量}{31}{paragraph*.94}%
+\contentsline {subsubsection}{任务四：测量带阻滤波器的频响特性}{31}{subsubsection*.95}%
+\contentsline {paragraph}{逐点测量法}{31}{paragraph*.96}%
+\contentsline {paragraph}{扫频法测量}{32}{paragraph*.100}%
+\contentsline {subsection}{\numberline {4.5}实验结果}{32}{subsection.0.4.5}%
+\contentsline {subsubsection}{任务一：低通滤波器频响特性测量结果}{32}{subsubsection*.101}%
+\contentsline {subsubsection}{任务二：高通滤波器频响特性测量结果}{32}{subsubsection*.104}%
+\contentsline {subsubsection}{任务三：带通滤波器频响特性测量结果}{32}{subsubsection*.107}%
+\contentsline {subsubsection}{任务四：带阻滤波器频响特性测量结果}{32}{subsubsection*.110}%
+\contentsline {subsubsection}{各个任务的扫频法测量结果}{34}{subsubsection*.113}%
+\contentsline {subsection}{\numberline {4.6}实验程序及运行结果}{34}{subsection.0.4.6}%
+\contentsline {subsubsection}{问题一程序及运行结果}{34}{subsubsection*.115}%
+\contentsline {subsubsection}{问题二程序及运行结果}{35}{subsubsection*.117}%
+\contentsline {subsubsection}{任务三程序及运行结果}{35}{subsubsection*.119}%
+\contentsline {subsubsection}{任务四程序及运行结果}{37}{subsubsection*.121}%
+\contentsline {subsubsection}{实验五程序及运行结果}{38}{subsubsection*.123}%
+\contentsline {subsubsection}{实验六程序及运行结果}{39}{subsubsection*.125}%
+\contentsline {section}{\numberline {5}抽样定理与信号恢复}{41}{section.0.5}%
+\contentsline {subsection}{\numberline {5.1}实验目的}{41}{subsection.0.5.1}%
+\contentsline {subsection}{\numberline {5.2}实验器材}{41}{subsection.0.5.2}%
+\contentsline {subsection}{\numberline {5.3}实验原理}{41}{subsection.0.5.3}%
+\contentsline {subsubsection}{抽样定理}{41}{subsubsection*.127}%
+\contentsline {subsubsection}{S3上的自然抽样功能}{41}{subsubsection*.129}%
+\contentsline {paragraph}{抽样及恢复流程}{41}{paragraph*.130}%
+\contentsline {paragraph}{同步与异步抽样}{42}{paragraph*.132}%
+\contentsline {paragraph}{有源低通滤波器}{42}{paragraph*.133}%
+\contentsline {subsection}{\numberline {5.4}实验步骤}{42}{subsection.0.5.4}%
+\contentsline {subsubsection}{任务：自然抽样及恢复}{42}{subsubsection*.135}%
+\contentsline {paragraph}{1、观察抽样信号波形}{42}{paragraph*.136}%
+\contentsline {paragraph}{2、验证抽样定理与信号恢复}{43}{paragraph*.138}%
+\contentsline {subsection}{\numberline {5.5}实验结果}{43}{subsection.0.5.5}%
+\contentsline {paragraph}{1、抽样信号波形观察记录}{43}{paragraph*.140}%
+\contentsline {paragraph}{2、抽样定理验证与信号恢复记录}{44}{paragraph*.142}%
+\contentsline {subsection}{\numberline {5.6}实验程序及运行结果}{45}{subsection.0.5.6}%
+\contentsline {subsubsection}{任务一程序及运行结果}{45}{subsubsection*.144}%
+\contentsline {paragraph}{任务二程序及运行结果}{46}{lstlisting.0.15}%
+\contentsline {paragraph}{任务三程序及运行结果}{48}{lstlisting.0.16}%
+\contentsline {section}{\numberline {6}信号卷积实验}{50}{section.0.6}%
+\contentsline {subsection}{\numberline {6.1}实验目的}{50}{subsection.0.6.1}%
+\contentsline {subsection}{\numberline {6.2}实验器材}{50}{subsection.0.6.2}%
+\contentsline {subsection}{\numberline {6.3}实验原理}{50}{subsection.0.6.3}%
+\contentsline {subsubsection}{两个矩形脉冲信号的卷积过程}{50}{subsubsection*.150}%
+\contentsline {paragraph}{图解法的一般步骤}{50}{paragraph*.152}%
+\contentsline {paragraph}{不同占空比矩形波的自卷积过程}{50}{paragraph*.153}%
+\contentsline {subsubsection}{矩形脉冲信号与锯齿波信号的卷积}{51}{subsubsection*.154}%
+\contentsline {paragraph}{占空比50\%的矩形波与锯齿波的互卷积过程}{51}{paragraph*.156}%
+\contentsline {subsection}{\numberline {6.4}实验步骤}{51}{subsection.0.6.4}%
+\contentsline {subsubsection}{矩形脉冲信号的自卷积}{51}{subsubsection*.157}%
+\contentsline {subsubsection}{矩形信号与矩形信号的互卷积}{52}{subsubsection*.159}%
+\contentsline {subsubsection}{矩形信号与锯齿波信号的互卷积}{52}{subsubsection*.161}%
+\contentsline {subsection}{\numberline {6.5}实验结果}{53}{subsection.0.6.5}%
+\contentsline {subsubsection}{矩形脉冲信号的自卷积}{53}{subsubsection*.163}%
+\contentsline {subsubsection}{矩形信号与矩形信号的互卷积}{53}{subsubsection*.165}%
+\contentsline {subsubsection}{矩形信号与锯齿波信号的互卷积}{54}{subsubsection*.167}%
+\contentsline {subsection}{\numberline {6.6}实验程序及运行结果}{55}{subsection.0.6.6}%
+\contentsline {subsubsection}{任务一程序及运行结果}{55}{subsubsection*.169}%
+\contentsline {subsubsection}{任务二程序及运行结果}{56}{subsubsection*.171}%
+\contentsline {subsubsection}{任务三程序及运行结果}{57}{subsubsection*.173}%
+\contentsline {subsubsection}{任务四程序及运行结果}{58}{subsubsection*.175}%
+\contentsline {section}{\numberline {7}波形的分解与合成实验}{60}{section.0.7}%
+\contentsline {subsection}{\numberline {7.1}实验目的}{60}{subsection.0.7.1}%
+\contentsline {subsection}{\numberline {7.2}实验器材}{60}{subsection.0.7.2}%
+\contentsline {subsection}{\numberline {7.3}实验原理}{60}{subsection.0.7.3}%
+\contentsline {subsubsection}{信号的频谱与测量}{60}{subsubsection*.177}%
+\contentsline {subsubsection}{方波信号的分解（占空比50\%）}{61}{subsubsection*.180}%
+\contentsline {subsubsection}{矩形信号的分解（占空比40\%）}{62}{subsubsection*.182}%
+\contentsline {subsubsection}{三角波信号的分解}{62}{subsubsection*.184}%
+\contentsline {subsubsection}{信号的分解提取与合成}{63}{subsubsection*.186}%
+\contentsline {paragraph}{信号分解提取}{63}{paragraph*.187}%
+\contentsline {paragraph}{信号合成}{63}{paragraph*.188}%
+\contentsline {subsection}{\numberline {7.4}实验步骤}{64}{subsection.0.7.4}%
+\contentsline {subsubsection}{方波的分解}{64}{subsubsection*.190}%
+\contentsline {subsubsection}{方波的合成}{64}{subsubsection*.193}%
+\contentsline {subsubsection}{三角波的分解与合成}{64}{subsubsection*.195}%
+\contentsline {subsection}{\numberline {7.5}实验结果}{65}{subsection.0.7.5}%
+\contentsline {subsubsection}{方波的分解}{65}{subsubsection*.198}%
+\contentsline {paragraph}{占空比50\%方波分解结果}{65}{paragraph*.199}%
+\contentsline {paragraph}{占空比40\%方波分解结果}{66}{paragraph*.202}%
+\contentsline {subsubsection}{方波的合成}{66}{subsubsection*.205}%
+\contentsline {subsubsection}{三角波的分解与合成}{66}{subsubsection*.207}%
+\contentsline {paragraph}{三角波分解结果}{66}{paragraph*.208}%
+\contentsline {paragraph}{三角波合成结果}{66}{paragraph*.211}%
+\contentsline {subsection}{\numberline {7.6}实验程序及运行结果}{71}{subsection.0.7.6}%
+\contentsline {subsubsection}{任务一}{71}{subsubsection*.213}%
+\contentsline {subsubsection}{任务二}{72}{subsubsection*.215}%
+\contentsline {subsubsection}{任务三}{73}{subsubsection*.217}%
+\contentsline {chapter}{大作业报告(第八次实验)}{77}{chapter*.219}%
+\contentsline {section}{\numberline {8}噪声抑制算法设计与实现}{78}{section.0.8}%
+\contentsline {subsection}{\numberline {8.1}设计思路}{78}{subsection.0.8.1}%
+\contentsline {subsubsection}{背景知识}{78}{subsubsection*.220}%
+\contentsline {subsubsection}{技术原理}{78}{subsubsection*.221}%
+\contentsline {subsection}{\numberline {8.2}具体实现过程}{79}{subsection.0.8.2}%
+\contentsline {subsubsection}{步骤1：输入校验与预处理}{79}{subsubsection*.222}%
+\contentsline {subsubsection}{步骤2：分帧参数计算}{79}{subsubsection*.223}%
+\contentsline {subsubsection}{步骤3：信号分帧}{79}{subsubsection*.224}%
+\contentsline {subsubsection}{步骤4：加窗处理}{79}{subsubsection*.225}%
+\contentsline {subsubsection}{步骤5：频域降噪处理}{79}{subsubsection*.226}%
+\contentsline {subsubsection}{步骤6：窗补偿与信号重构}{80}{subsubsection*.227}%
+\contentsline {subsubsection}{步骤7：滤波器特性可视化}{80}{subsubsection*.228}%
+\contentsline {subsubsection}{算法核心特性}{80}{subsubsection*.230}%
+\contentsline {subsection}{\numberline {8.3}程序代码及运行结果}{80}{subsection.0.8.3}%
+\contentsline {subsubsection}{程序代码}{80}{subsubsection*.231}%
+\contentsline {subsubsection}{运行结果}{85}{subsubsection*.232}%
+\contentsline {section}{\numberline {9}女声转男声音频处理算法设计与实现}{88}{section.0.9}%
+\contentsline {subsection}{\numberline {9.1}设计思路}{88}{subsection.0.9.1}%
+\contentsline {subsubsection}{背景知识}{88}{subsubsection*.236}%
+\contentsline {subsubsection}{技术原理}{88}{subsubsection*.238}%
+\contentsline {subsection}{\numberline {9.2}具体实现过程}{89}{subsection.0.9.2}%
+\contentsline {subsubsection}{步骤1：环境初始化与音频读取}{89}{subsubsection*.239}%
+\contentsline {subsubsection}{步骤2：核心调整参数设置}{89}{subsubsection*.240}%
+\contentsline {subsubsection}{步骤3：基频调整（核心变声）}{89}{subsubsection*.241}%
+\contentsline {subsubsection}{步骤4：温和高频增强（修复声音消失）}{90}{subsubsection*.242}%
+\contentsline {subsubsection}{步骤5：音量归一化与异常处理}{90}{subsubsection*.243}%
+\contentsline {subsubsection}{步骤6：频谱对比绘制（验证信号）}{90}{subsubsection*.244}%
+\contentsline {subsubsection}{步骤7：音频保存与播放}{90}{subsubsection*.245}%
+\contentsline {subsubsection}{子函数：plotSpectrum（绘制单侧边频谱）}{90}{subsubsection*.246}%
+\contentsline {subsubsection}{算法核心特性}{90}{subsubsection*.247}%
+\contentsline {subsection}{\numberline {9.3}程序代码及运行结果}{91}{subsection.0.9.3}%
+\contentsline {subsubsection}{程序代码}{91}{subsubsection*.248}%
+\contentsline {subsubsection}{运行结果}{92}{subsubsection*.249}%
+\contentsline {section}{\numberline {10}音频变速算法设计与实现}{94}{section.0.10}%
+\contentsline {subsection}{\numberline {10.1}设计思路}{94}{subsection.0.10.1}%
+\contentsline {subsubsection}{背景知识}{94}{subsubsection*.251}%
+\contentsline {subsubsection}{背景知识}{94}{subsubsection*.252}%
+\contentsline {subsubsection}{技术原理}{95}{subsubsection*.254}%
+\contentsline {subsection}{\numberline {10.2}具体实现过程}{95}{subsection.0.10.2}%
+\contentsline {subsubsection}{步骤1：基本参数计算与初始化}{95}{subsubsection*.255}%
+\contentsline {subsubsection}{步骤2：输入信号分帧}{96}{subsubsection*.256}%
+\contentsline {subsubsection}{步骤3：帧加窗处理}{96}{subsubsection*.257}%
+\contentsline {subsubsection}{步骤4：重叠相加重构输出信号}{96}{subsubsection*.258}%
+\contentsline {subsubsection}{步骤5：采样率赋值}{96}{subsubsection*.259}%
+\contentsline {subsubsection}{算法核心特性}{96}{subsubsection*.260}%
+\contentsline {subsection}{\numberline {10.3}程序代码和运行结果}{96}{subsection.0.10.3}%
+\contentsline {subsubsection}{程序代码}{96}{subsubsection*.261}%
+\contentsline {subsubsection}{代码运行结果}{98}{subsubsection*.262}%
+\contentsline {section}{\numberline {11}基于能量阈值的语音段自动分割与反转拼接算法实现}{99}{section.0.11}%
+\contentsline {subsection}{\numberline {11.1}设计思路}{99}{subsection.0.11.1}%
+\contentsline {subsubsection}{背景知识}{99}{subsubsection*.263}%
+\contentsline {subsubsection}{背景知识}{99}{subsubsection*.264}%
+\contentsline {subsubsection}{技术原理}{99}{subsubsection*.265}%
+\contentsline {subsection}{\numberline {11.2}具体实现过程}{100}{subsection.0.11.2}%
+\contentsline {subsubsection}{步骤1：环境初始化与参数配置}{100}{subsubsection*.266}%
+\contentsline {subsubsection}{步骤2：音频读取与预处理}{100}{subsubsection*.267}%
+\contentsline {subsubsection}{步骤3：短时能量计算}{100}{subsubsection*.268}%
+\contentsline {subsubsection}{步骤4：语音段自动分割}{100}{subsubsection*.269}%
+\contentsline {subsubsection}{步骤5：语音段起始前移修正}{101}{subsubsection*.270}%
+\contentsline {subsubsection}{步骤6：提取音频间隔（静音区）}{101}{subsubsection*.271}%
+\contentsline {subsubsection}{步骤7：反转拼接音频}{101}{subsubsection*.272}%
+\contentsline {subsubsection}{步骤8：音频保存与可视化}{102}{subsubsection*.273}%
+\contentsline {subsubsection}{算法核心特性}{102}{subsubsection*.274}%
+\contentsline {subsection}{\numberline {11.3}程序代码及运行结果}{102}{subsection.0.11.3}%
+\contentsline {subsubsection}{ 程序代码}{102}{subsubsection*.275}%
+\contentsline {subsubsection}{运行结果}{106}{subsubsection*.276}%

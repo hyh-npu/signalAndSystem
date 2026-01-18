@@ -1,0 +1,457 @@
+
+% ! TEX root = ../report.tex
+%
+
+\documentclass[a4paper]{article}
+\usepackage{ctex}       
+% 修正：geometry参数head→top（head是页眉高度，此处应为上边距）
+\usepackage[left=1.5cm,right=1.5cm,top=1.5cm,bottom=1.5cm]{geometry}
+\usepackage{graphicx}   
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{multirow} 
+% 移除冲突包：subcaption与subfigure冲突，且subfigure是旧包，此处用subcaption足够
+% \usepackage{subfigure}
+% 修正：hyperref放在最后加载，避免与其他包冲突
+\usepackage{hyperref}
+\usepackage{float}
+
+\begin{document}
+\section{连续时间系统的模拟}
+\subsection{实验目的}
+  
+
+\begin{enumerate}
+    \item 了解基本运算器——比例放大器、加法器和积分器的电路结构和运算功能。
+    \item 掌握用基本运算单元模拟连续时间一阶系统原理与测试方法。
+\end{enumerate}
+
+\subsection{实验器材}
+
+\begin{enumerate}
+    \item 双踪示波器 \hfill 1台
+    \item 数字万用表 \hfill 1块
+    \item 电压表及直流信号源模块\textcircled{S1} \hfill 1块
+    \item 信号源及频率计模块\textcircled{S2} \hfill 1块
+    \item 基本运算单元与连续系统模块\textcircled{S9} \hfill 1块
+\end{enumerate}
+
+\subsection{实验原理}
+
+\subsubsection{1、线性系统的模拟}
+利用运算放大器组成基本的运算单元（放大器、加法器、积分器等）来模拟实际系统传输特性。
+
+\subsubsection{2、三种基本运算电路}
+\paragraph{a、比例放大器}
+比例放大器的输入输出关系为：
+\[
+u_0 = -\frac{R_2}{R_1} \cdot u_1
+\]
+\begin{figure}[htbp]
+    \centering
+    \includegraphics{./fig3-1.png} % 替换为实际图片文件名（如fig3-1.png）
+    \caption{比例放大电路连线示意图}
+    \label{fig:amp-circuit} % 定义标签，命名可自定义
+\end{figure}
+比例放大器的电路连线示意如图\ref{fig:amp-circuit}所示。
+
+\paragraph{b、加法器}
+加法器的输入输出关系为：
+\[
+u_0 = -\frac{R_2}{R_1}(u_1 + u_2)
+\]
+当 \( R_1 = R_2 \) 时，简化为：
+\[
+u_0 = -(u_1 + u_2)
+\]
+\begin{figure}[htbp]
+    \centering
+    \includegraphics{fig3-2.png} % 替换为实际图片文件名（如fig3-2.png）
+    \caption{加法器电路连线示意图}
+    \label{fig:adder-circuit}
+\end{figure}
+加法器的电路连线示意如图\ref{fig:adder-circuit}所示。
+
+\paragraph{c、积分器}
+积分器的输入输出关系为：
+\[
+u_0 = -\frac{1}{RC} \int u_1 dt
+\]
+\begin{figure}[htbp]
+    \centering
+    \includegraphics{fig3-3.png} % 替换为实际图片文件名（如fig3-3.png）
+    \caption{积分器电路连接示意图}
+    \label{fig:integrator-circuit}
+\end{figure}
+积分器的电路连接示意如图\ref{fig:integrator-circuit}所示。
+
+\subsubsection{3、一阶系统的模拟}
+图\ref{fig:first-order-system}（\ref{subfig:first-order-rc}）为一阶RC电路，可用微分方程描述：
+\[
+\frac{dy(t)}{dt} + \frac{1}{RC} y(t) = \frac{1}{RC} x(t)
+\]
+其模拟框图如图\ref{fig:first-order-system}（\ref{subfig:first-order-block1}）和图\ref{fig:first-order-system}（\ref{subfig:first-order-block2}）所示，二者数学关系等效，对应的积分关系分别为：
+\[
+\int \left[ x(t)\frac{1}{RC} - y(t)\frac{1}{RC} \right] dt = y(t)
+\]
+\[
+\int \left[ -x(t) + y(t) \right] \left( -\frac{1}{RC} \right) dt = y(t)
+\]
+一阶系统模拟实验电路如图\ref{fig:first-order-system}（\ref{subfig:first-order-exp-circuit}）所示。
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.2\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig3-4a.png} % 替换为实际子图文件名
+        \caption{一阶RC电路}
+        \label{subfig:first-order-rc}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.2\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig3-4b.png} % 替换为实际子图文件名
+        \caption{模拟框图1}
+        \label{subfig:first-order-block1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.2\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig3-4c.png} % 替换为实际子图文件名
+        \caption{模拟框图2}
+        \label{subfig:first-order-block2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.2\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig3-4d.png} % 替换为实际子图文件名
+        \caption{模拟实验电路}
+        \label{subfig:first-order-exp-circuit}
+    \end{subfigure}
+    \caption{一阶系统的电路与模拟框图}
+    \label{fig:first-order-system}
+\end{figure}
+
+\subsection{实验步骤}
+
+\subsubsection{任务一 基本运算器——加法器的观测}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{./fig3-6.png} % 替换为图3-6的实际文件名
+    \caption{加法器实验电路图}
+    \label{fig:adder-exp-circuit}
+\end{figure}
+
+①模块关电，按图\ref{fig:adder-exp-circuit}所示连接实验电路。
+
+②将模块\textcircled{S1}的直流输出1（P1）和直流输出2（P2）分别接至加法器的$u_1$和$u_2$。模块开电，适当调节模块\textcircled{S1}中的W1、W2，并记录P1和P2的电压值。
+
+③用万用表或示波器测量输出$u_0$端电压，验证反相加法器“输出为两路输入之和取反”的特性，完成下表：
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+输入一 & 输入二 & 输出 \\
+\hline
+电压(V) & 电压(V) & 电压(V) \\
+\hline
+ &  &  \\
+\hline
+ &  &  \\
+\hline
+ &  &  \\
+\hline
+\end{tabular}
+\end{center}
+
+④将输入信号改为“幅度2V、频率500Hz的方波”，观察输入/输出波形并补充表格。
+
+
+\subsubsection{任务二 基本运算器——比例放大器的观测}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{./fig3-7.png} % 替换为图3-7的实际文件名
+    \caption{比例放大器实验电路图}
+    \label{fig:amp-exp-circuit}
+\end{figure}
+
+①模块关电，连接如图\ref{fig:amp-exp-circuit}所示实验电路；$R_1、R_2$可选2组不同电阻值以改变放大比例。
+
+②模块开电，将“幅度1V、频率1KHz的正弦波”送入输入端，用示波器观测输入/输出波形，完成下表：
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{电阻} & \multicolumn{2}{c|}{输入} & \multicolumn{2}{c|}{输出} \\
+\hline
+\multicolumn{2}{|c|}{} & 电压(V) & 波形 & 电压(V) & 波形 \\
+\hline
+\multirow{2}{*}{①} & $R1=1\mathrm{K}\Omega$ &  &  &  &  \\
+%\cline{2-6}
+ & $R2=5.1\mathrm{K}\Omega$ &  &  &  &  \\
+\hline
+\multirow{2}{*}{②} & $R1=$ &  &  &  &  \\
+%\cline{2-6}
+ & $R2=$ &  &  &  &  \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\subsubsection{任务三 基本运算器——积分器的观测}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{./fig3-8.png} % 替换为图3-8的实际文件名
+    \caption{积分器实验电路图}
+    \label{fig:integrator-exp-circuit}
+\end{figure}
+
+①模块关电，连接如图\ref{fig:integrator-exp-circuit}所示实验电路（$20\mathrm{K}\Omega$电阻可由两个$10\mathrm{K}\Omega$电阻串联代替）。
+
+②模块开电，用模块\textcircled{S2}产生$f=1\mathrm{KHz}$的方波送入输入端，用示波器观测输入/输出波形并记录数据。
+
+
+\subsubsection{任务四 一阶RC电路的模拟}
+图\ref{fig:first-order-system}（\ref{subfig:first-order-rc}）为一阶RC电路，模块关电后，按图\ref{fig:first-order-system}（\ref{subfig:first-order-exp-circuit}）连接其一阶模拟电路（$0.022\mathrm{\mu F}$电容可由两个$0.01\mathrm{\mu F}$电容并联代替）。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.6\textwidth]{fig3-9.png} % 替换为图3-9的实际文件名
+    \caption{模块实验电路图}
+    \label{fig:rc-module-circuit}
+\end{figure}
+
+模块开电，将“幅度2V、频率1KHz的方波”送入一阶模拟电路输入端，用示波器观测输出电压波形，验证模拟效果。
+
+\subsection{实验结果}
+\subsubsection{任务一：基本运算器——加法器的观测}
+结果如下表\ref{lab:adder-circuit-result}
+\begin{table}[H]
+\caption{加法器实验结果表}
+\label{lab:adder-circuit-result}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+输入一 & 输入二 & 输出 \\
+\hline
+电压(V) & 电压(V) & 电压(V) \\
+\hline
+ 1& 1 & -2 \\
+\hline
+ 1& -0.5 & -0.5 \\
+\hline
+ 1& 0.5 & -1.5 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\subsubsection{任务二：基本运算器——比例放大器的观测}
+结果如下表\ref{lab:amp-circuit-result}
+\begin{table}[H]
+\caption{比例放大器实验结果表}
+\label{lab:amp-circuit-result}
+\centering
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\multicolumn{2}{|c|}{电阻} & \multicolumn{2}{c|}{输入} & \multicolumn{2}{c|}{输出} \\
+\hline
+\multicolumn{2}{|c|}{} & 电压(V) & 波形 & 电压(V) & 波形 \\
+\hline
+\multirow{2}{*}{①} & $R1=1\mathrm{K}\Omega$ & 1 V  & 正弦波 & 2 V & 正弦波（反相） \\
+%\cline{2-6}
+ & $R2=5.1\mathrm{K}\Omega$ &  &  &  &  \\
+\hline
+\multirow{2}{*}{②} & $R1=10\mathrm{K}\Omega$ & 1.92 V & 正弦波 & 9.6 V & 正弦波（反相） \\
+%\cline{2-6}
+ & $R2=5.1\mathrm{K}\Omega$ &  &  &  &  \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+波形如图\ref{fig:amp-waveform}所示。
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig-result-2-1.png} % 替换为实际子图文件名
+        \caption{R1=1KΩ，R2=5.1KΩ}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig-result-2-2.png} % 替换为实际子图文件名
+        \caption{R1=10KΩ，R2=5.1KΩ}
+    \end{subfigure}
+    \caption{比例放大器输入输出波形}
+    \label{fig:amp-waveform}
+\end{figure}
+
+\subsubsection{任务三：基本运算器——积分器的观测}
+
+积分电路波形如下图\ref{fig:integrator-waveform}所示。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{fig-result-3.png} % 替换为实际图片文件名
+    \caption{积分器输入输出波形}
+    \label{fig:integrator-waveform}
+\end{figure}
+
+\subsubsection{任务四：一阶RC电路的模拟}
+
+电路波形如下图\ref{fig:first-order-waveform}所示。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{fig-result-4.png} % 替换为实际图片文件名
+    \caption{一阶RC电路模拟输入输出波形}
+    \label{fig:first-order-waveform}
+\end{figure}
+
+\subsection{实验程序及运行结果}
+\subsubsection{问题一运行结果}
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ]  
+sys = tf([0,3,2],[1,5,6]);
+t = -3:0.01:10;
+yd = impulse(sys,t);
+yu = step(sys,t);
+
+figure;
+subplot(3,1,1);
+plot(t,yd);
+title('Impulse Response');
+
+subplot(3,1,2);
+plot(t,yu);
+title('Step Response');
+
+
+f= exp(-2.*t).*heaviside(t);
+yf = lsim(sys,f,t);
+
+subplot(3,1,3);
+plot(t,yf);
+title('Response to f(t) = e^{-2t}u(t)');
+
+
+saveas(gcf,'./p1.png');
+
+\end{lstlisting}
+
+问题一运行结果如下图\ref{fig:problem1-result}所示。
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{./matlab/p1.png} % 替换为实际图片文件名
+    \caption{问题一运行结果图}
+    \label{fig:problem1-result}
+\end{figure}
+
+\subsubsection{问题二运行结果}
+
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+
+sys = tf([0,0,4],[0,1,12]);
+t = -3:0.01:10;
+
+yd = impulse(sys,t);
+yu = step(sys,t);
+
+f = 12 .* heaviside(t);
+
+yf = lsim(sys,f,t);
+
+figure;
+subplot(3,1,1);
+plot(t,yd);
+title('Impulse Response');
+
+subplot(3,1,2);
+plot(t,yu);
+title('Step Response');
+
+subplot(3,1,3);
+plot(t,yf);
+title('Response to f(t) = 12u(t)');
+
+saveas(gcf,'./p2.png');
+\end{lstlisting}
+
+问题二运行结果如下图\ref{fig:problem2-result}所示。
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{./matlab/p2.png} % 替换为实际图片文件名
+  \caption{问题二运行结果图}
+  \label{fig:problem2-result}
+\end{figure}
+
+\subsubsection{问题三运行结果}
+
+
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+sys = tf([0,1,0],[1,1,100]);
+
+t = -3:0.01:10;
+
+yd = impulse(sys,t);
+yu = step(sys,t);
+
+figure;
+subplot(2,1,1);
+plot(t,yd);
+title('Impulse Response');
+
+subplot(2,1,2);
+plot(t,yu);
+title('Step Response');
+
+saveas(gcf,'./p3.png');
+\end{lstlisting}
+
+问题三运行结果如下图\ref{fig:problem3-result}所示。
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{./matlab/p3.png} % 替换为实际图片文件名
+  \caption{问题三运行结果图}
+  \label{fig:problem3-result}
+\end{figure}
+
+\end{document}

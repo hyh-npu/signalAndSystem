@@ -1,0 +1,371 @@
+% ! TEX root = ../report.tex
+
+\documentclass[../report.tex]{subfile}  % 仅这一行关联主文件，无其他导言命令
+
+\begin{document}
+\section{抽样定理与信号恢复}
+\subsection{实验目的}
+%1、观察离散信号频谱，了解其频谱特点。
+%
+%2、验证抽样定理并恢复原信号。
+
+\begin{enumerate}
+  \item 观察抽样信号波形，了解同步与异步抽样的区别。
+  \item 验证抽样定理，掌握信号恢复的方法。
+\end{enumerate}
+
+\subsection{实验器材}
+\begin{enumerate}
+    \item 双踪示波器：1台
+    \item 信号源及频率计模块S2：1块
+    \item 抽样定理及滤波器模块S3：1块
+\end{enumerate}
+
+\subsection{实验原理}
+\subsubsection{抽样定理}
+抽样信号在条件 \(f_s \geq 2B_f\) 时可以恢复，其中 \(f_s\) 为抽样频率，\(B_f\) 为原信号占有频带宽度。由于抽样信号频谱是原信号频谱的周期性延拓，只要通过截止频率为 \(f_c\)（满足 \(f_m \leq f_c \leq f_s - f_m\)，\(f_m\) 是原信号频谱中的最高频率）的低通滤波器就能恢复出原信号。若 \(f_s < 2B_f\)，则抽样信号频谱会出现混叠，将无法恢复。
+
+在实际信号中，仅含有限频率成分的信号极少，大多信号的频率成分是无限的，且实际低通滤波器在截止频率附近的频率特性曲线不够理想（如图\ref{fig:5-4}所示）。若使 \(f_s = 2B_f\)、\(f_c = f_m = B_f\)，恢复出的信号难免有失真。为减小失真，应将抽样频率 \(f_s\) 取高（\(f_s > 2B_f\)），低通滤波器需满足 \(f_m < f_c < f_s - f_m\)。
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{./fig5-4.png}  % 请替换为实际图片路径
+    \caption{实际低通滤波器在截止频率附近频率特性曲线}
+    \label{fig:5-4}
+\end{figure}
+
+\subsubsection{S3上的自然抽样功能}
+\paragraph{抽样及恢复流程}
+信号自然抽样及恢复流程如图\ref{fig:5-5}所示。连续信号 \(F(t)\) 经抽样器进行抽样处理，抽样输出的信号 \(F_s(t)\) 再经低通滤波器，输出信号 \(F'(t)\)。当抽样时钟频率满足抽样定理时，就能从 \(F_s(t)\) 中恢复出原始的连续信号 \(F(t)\)。
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{fig5-5.png}  % 请替换为实际图片路径
+    \caption{信号自然抽样及恢复流程图}
+    \label{fig:5-5}
+\end{figure}
+
+\paragraph{同步与异步抽样}
+S3模块有同步和异步两种抽样方式：
+- 同步抽样：抽样时钟与连续信号由同一晶振源产生，便于观察到稳定的抽样信号，可对比信号抽样前后及恢复信号的波形。
+- 异步抽样：连续信号与抽样时钟是不同源的关系，贴近实际的信号抽样过程，抽样频率连续可调，但不便于用示波器观察到稳定的抽样信号。
+
+\paragraph{有源低通滤波器}
+实验中，模块采用8阶有源低通滤波器对抽样后的信号进行滤波恢复，滤波器电路原理图如图\ref{fig:5-6}所示。异步抽样频率范围为1.25kHz~35kHz。
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{fig5-6.png}  % 请替换为实际图片路径
+    \caption{S3模块有源低通滤波器电路原理图}
+    \label{fig:5-6}
+\end{figure}
+
+\subsection{实验步骤}
+\subsubsection{任务：自然抽样及恢复}
+\paragraph{1、观察抽样信号波形}
+选用正弦波作为被抽样信号进行实验，步骤如下：
+\begin{enumerate}
+    \item 将S2模块中的扫频开关S3置为“OFF”，调节模拟信号源上的“ROL1”旋钮和“模拟输出幅度调节”旋钮，使P2处输出频率1kHz、幅度2V的正弦波。
+    \item 连接模拟信号源输出端P2与抽样定理模块S3的连续信号输入点P17。
+    \item 将开关S2拨至“异步”，用示波器观察TP20处抽样信号输出波形，调整电位器W1改变抽样频率，观察抽样信号的变化情况。
+    \item 将开关S2拨至“同步”，连接信号源及频率计模块S2中P5与抽样定理模块S3上外部开关输入点P18。用示波器的两通道分别观察模拟信号输出端P2、抽样信号输出波形TP20，调整按钮S7改变抽样频率，观察抽样信号的变化情况，完成下表：
+\end{enumerate}
+
+\begin{table}[!htbp]
+    \centering
+    \caption{抽样信号波形观察记录表}
+    \label{tab:5-1}
+    \begin{tabular}{|c|c|}
+        \hline
+        抽样频率 & $F_s(t)$抽样信号TP20的波形 \\
+        \hline
+        1kHz &  \\
+        \hline
+        2kHz &  \\
+        \hline
+        4kHz &  \\
+        \hline
+        8kHz &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\paragraph{2、验证抽样定理与信号恢复}
+\begin{enumerate}
+    \item 连接模块S3的P20和P19。
+    \item 用示波器接原始抽样信号输入点TP17、恢复信号输出点TP22。
+    \item 改变抽样时钟信号，对比观察信号恢复情况，完成下表：
+    \item 将开关S2拨至“异步”，用示波器观察TP20处抽样信号的波形，调整电位器W1改变抽样频率，观察抽样信号的变化情况。
+\end{enumerate}
+
+\begin{table}[!htbp]
+    \centering
+    \caption{抽样定理验证与信号恢复记录表}
+    \label{tab:5-2}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        输入信号频率 & 抽样频率 & TP20抽样信号输出 & TP22恢复信号输出 \\
+        \hline
+        1kHz & 1kHz &  \\
+        \hline
+        1kHz & 2kHz &  \\
+        \hline
+        1kHz & 4kHz &  \\
+        \hline
+        1kHz & 8kHz &  \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{实验结果}
+\paragraph{1、抽样信号波形观察记录}
+抽样信号的波形如下图\ref{fig:5-wave}所示：
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}
+    {0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{fig5-1.png}  % 请替换为实际图片路径
+    \caption{抽样频率1kHz}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{fig5-2.png}  % 请替换为实际图片路径
+    \caption{抽样频率2kHz}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{fig5-3.png}  % 请替换为实际图片路径
+    \caption{抽样频率4kHz}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{fig5-4 (1).png}  % 请替换为实际图片路径
+    \caption{抽样频率8kHz}
+  \end{subfigure}
+  \caption{抽样信号波形}
+  \label{fig:5-wave}
+\end{figure}
+
+\paragraph{2、抽样定理验证与信号恢复记录}
+抽样信号的恢复波形如下图\ref{fig:5-recover}所示：
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}
+    {0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{fig5-7.png}  % 请替换为实际图片路径
+    \caption{抽样频率1kHz}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{fig5-8.png}  % 请替换为实际图片路径
+    \caption{抽样频率2kHz}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{fig5-9.png}  % 请替换为实际图片路径
+    \caption{抽样频率4kHz}
+  \end{subfigure}
+  \begin{subfigure}
+    {0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{fig5-10.png}  % 请替换为实际图片路径
+    \caption{抽样频率8kHz}
+  \end{subfigure}
+  \caption{抽样信号恢复波形}
+  \label{fig:5-recover}
+\end{figure}
+
+\subsection{实验程序及运行结果}
+\subsubsection{任务一程序及运行结果}
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+
+ Ts = 0.5; %采样周期
+ ts = -10:Ts:10;
+ t = -10:0.01:10;
+ %原始信号和采样信号
+
+ fs = sinc(ts).*(heaviside(ts+2*pi)-heaviside(ts-2*pi));
+ f = sinc(t).*(heaviside(t+2*pi)-heaviside(t-2*pi));
+ figure;
+ subplot(2,2,1);
+ plot(t,f);
+ title(' Original Signal f(t)');
+ subplot(2,2,2);
+ scatter(ts,fs);
+ title(' Sampled Signal fs(t)');
+
+ %信号恢复
+ wc = pi/Ts;         
+ sinc_mat = sinc( wc/pi * (t'*ones(1,length(ts)) - ones(length(t),1)*ts) );
+ fr = sum( fs .* sinc_mat, 2 ); 
+ subplot(2,2,3);
+ plot(t,fr);
+ title(' Reconstructed Signal fr(t)');
+
+ bias = fr - f';
+ subplot(2,2,4);
+ plot(t,bias);
+ title(' Reconstruction Error fr(t)-f(t)');
+
+
+
+
+
+ %保存图片
+ handle = gcf;
+ saveas(handle,'./class5_1png');
+
+\end{lstlisting}
+
+运行结果如图\ref{fig:5-task1}所示：
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./matlab/class5_1_original_signal.png}  % 请替换为实际图片路径
+  \caption{任务一运行结果}
+  \label{fig:5-task1}
+\end{figure}
+
+\paragraph{任务二程序及运行结果}
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+
+Ts = 0.3; %采样周期
+ts = -4:Ts:4;
+t = -4:0.01:4;
+%原始信号和采样信号
+
+fs = 1/2.*(1.+cos(ts)).*(heaviside(ts+2*pi)-heaviside(ts-2*pi));
+f = 1/2.*(1.+cos(t)).*(heaviside(t+2*pi)-heaviside(t-2*pi));
+figure;
+subplot(2,2,1);
+plot(t,f);
+title(' Original Signal f(t)');
+subplot(2,2,2);
+
+stem(ts,fs);
+title(' Sampled Signal fs(t)');
+
+%信号恢复
+wc = pi/Ts;         
+sinc_mat = sinc( wc/pi * (t'*ones(1,length(ts)) - ones(length(t),1)*ts) );
+fr = sum( fs .* sinc_mat, 2 ); 
+subplot(2,2,3);
+plot(t,fr);
+title(' Reconstructed Signal fr(t)');
+
+bias = fr - f';
+subplot(2,2,4);
+plot(t,bias);
+title(' Reconstruction Error fr(t)-f(t)');
+
+
+
+
+
+%保存图片
+handle = gcf;
+saveas(handle,'class5_2.png');
+\end{lstlisting}
+
+运行结果如图\ref{fig:5-task2}所示：
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./matlab/class_5_original_signal.png}  % 请替换为实际图片路径
+  \caption{任务二运行结果}
+  \label{fig:5-task2}
+\end{figure}
+
+\paragraph{任务三程序及运行结果}
+\begin{lstlisting}[language=Matlab, 
+                  caption={信号波形生成与绘图代码}, 
+                        % 指定代码语言（此处为MATLAB）
+  basicstyle=\ttfamily\small,  % 等宽字体+小字号（Markdown常用）
+  backgroundcolor=\color{gray!5},  % 浅灰背景（接近多数Markdown渲染效果）
+  frame=none,           % 无边框（Markdown代码块通常无框）
+  keywordstyle=\color{blue},  % 关键字高亮（蓝色，可选）
+  commentstyle=\color{green},  % 注释高亮（绿色，可选）
+  showstringspaces=false,  % 不显示字符串中的空格标记
+  numbers=none,         % 不显示行号（Markdown默认无行号）
+  breaklines=true,      % 自动换行（避免溢出）
+  columns=fullflexible  ] 
+
+Ts = 0.1;
+t = -3:0.01:3;
+T = -3:Ts:3;
+ft = 2.*((t<0&t>-1)|(t>1&t<2))+1*(t>=0&t<=1);
+
+%采样信号
+fTs = 2.*((T<0&T>-1)|(T>1&T<2))+1*(T>=0&T<=1);
+
+%数值傅里叶变换
+dw = 0.01;
+w = -100:dw:100;
+FTw = dw.*fTs*exp(-1j*T'*w);
+
+%抽样信号的还原
+
+%低通滤波器
+Hw = heaviside(w+pi/Ts)-heaviside(w-pi/Ts);
+Ftw = FTw.*Hw;
+%逆傅里叶变换
+f_recon = (1/(2*pi)).*Ftw*exp(1j*w'*t)*dw;
+
+figure;
+
+subplot(4,1,1);
+plot(t,ft);
+title(' Original Signal f(t)');
+
+subplot(4,1,2);
+stem(T,fTs);
+title(' Sampled Signal f_{Ts}(t)');
+
+subplot(4,1,3);
+plot(w,abs(FTw));
+title('Magnitude Spectrum |F(w)|');
+
+subplot(4,1,4);
+plot(t,real(f_recon));
+title(' Reconstructed Signal f_{recon}(t)');
+
+saveas(gcf,'./class5_3.png');
+\end{lstlisting}
+
+运行结果如图\ref{fig:5-task3}所示：
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./matlab/class5_3.png}  % 请替换为实际图片路径
+  \caption{任务三运行结果}
+  \label{fig:5-task3}
+\end{figure}
+
+\end{document}

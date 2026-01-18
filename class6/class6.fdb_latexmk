@@ -1,0 +1,13 @@
+# Fdb version 4
+["pdflatex"] 1766042312.92202 "class6.tex" "class6.pdf" "class6" 1766042313.05852 2
+  "/usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf" 1749313668 42213 4e2ca030e8e2640502016e9e45868dcb ""
+  "/usr/local/texlive/2025/texmf-var/web2c/xetex/xelatex.fmt" 1756057146 5897411 e9d7cb28a167ce568971556b47bb97d7 ""
+  "/usr/local/texlive/2025/texmf.cnf" 1756057079.14995 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
+  "class6.aux" 1766042091.33529 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "class6.tex" 1766042304.70414 8649 9c4e19e704ea9001e3898c0f5f8521d0 ""
+  "subfile.cls" 0 -1 0 ""
+  (generated)
+  "class6.aux"
+  "class6.log"
+  "class6.pdf"
+  (rewritten before read)
